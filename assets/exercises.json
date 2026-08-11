@@ -1,0 +1,4473 @@
+{
+  "count": 195,
+  "exercises": [
+    {
+      "id": "barbell_bench_press",
+      "name": "Barbell Bench Press",
+      "category": "gym",
+      "equipment": [
+        "barbell",
+        "bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest (Sternal Pectoralis Major)",
+      "secondary_muscles": [
+        "Front Delts",
+        "Triceps"
+      ],
+      "keywords": [
+        "bench press",
+        "flat bench press",
+        "barbell chest press",
+        "bb bench",
+        "chest press"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "incline_barbell_bench_press",
+      "name": "Incline Barbell Bench Press",
+      "category": "gym",
+      "equipment": [
+        "barbell",
+        "incline bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Upper Chest (Clavicular Pectoralis Major)",
+      "secondary_muscles": [
+        "Front Delts",
+        "Triceps"
+      ],
+      "keywords": [
+        "incline bench press",
+        "incline barbell press",
+        "upper chest press"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "decline_barbell_bench_press",
+      "name": "Decline Barbell Bench Press",
+      "category": "gym",
+      "equipment": [
+        "barbell",
+        "decline bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Lower Chest (Sternocostal fibers)",
+      "secondary_muscles": [
+        "Triceps",
+        "Front Delts"
+      ],
+      "keywords": [
+        "decline bench press",
+        "decline barbell press",
+        "lower chest press"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "flat_dumbbell_bench_press",
+      "name": "Flat Dumbbell Bench Press",
+      "category": "gym",
+      "equipment": [
+        "dumbbells",
+        "bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest",
+      "secondary_muscles": [
+        "Front Delts",
+        "Triceps"
+      ],
+      "keywords": [
+        "dumbbell bench press",
+        "db bench press",
+        "flat db press"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "incline_dumbbell_press",
+      "name": "Incline Dumbbell Press",
+      "category": "gym",
+      "equipment": [
+        "dumbbells",
+        "incline bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Upper Chest",
+      "secondary_muscles": [
+        "Front Delts",
+        "Triceps"
+      ],
+      "keywords": [
+        "incline dumbbell press",
+        "incline db press",
+        "upper chest dumbbell"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "decline_dumbbell_press",
+      "name": "Decline Dumbbell Press",
+      "category": "gym",
+      "equipment": [
+        "dumbbells",
+        "decline bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Lower Chest",
+      "secondary_muscles": [
+        "Triceps"
+      ],
+      "keywords": [
+        "decline dumbbell press",
+        "decline db press"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "flat_cable_fly",
+      "name": "Flat Cable Fly",
+      "category": "gym",
+      "equipment": [
+        "cable machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest",
+      "secondary_muscles": [
+        "Front Delts"
+      ],
+      "keywords": [
+        "cable fly",
+        "cable crossover",
+        "chest fly"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "low-to-high_cable_fly",
+      "name": "Low-to-High Cable Fly",
+      "category": "gym",
+      "equipment": [
+        "cable machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Upper Chest",
+      "secondary_muscles": [
+        "Front Delts"
+      ],
+      "keywords": [
+        "low cable fly",
+        "incline cable fly",
+        "upper chest fly"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "pec_deck_machine_fly",
+      "name": "Pec Deck Machine Fly",
+      "category": "gym",
+      "equipment": [
+        "pec deck machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest",
+      "secondary_muscles": [
+        "Front Delts"
+      ],
+      "keywords": [
+        "pec deck",
+        "machine fly",
+        "butterfly machine"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "weighted_dips_chest_lean",
+      "name": "Weighted Dips (Chest Lean)",
+      "category": "gym",
+      "equipment": [
+        "dip bars",
+        "weight belt"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Lower Chest",
+      "secondary_muscles": [
+        "Triceps",
+        "Front Delts"
+      ],
+      "keywords": [
+        "chest dip",
+        "weighted dips",
+        "parallel bar dips"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "conventional_barbell_deadlift",
+      "name": "Conventional Barbell Deadlift",
+      "category": "gym",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lower Back (Erector Spinae)",
+      "secondary_muscles": [
+        "Glutes",
+        "Hamstrings",
+        "Traps",
+        "Lats"
+      ],
+      "keywords": [
+        "deadlift",
+        "conventional deadlift",
+        "barbell deadlift"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "barbell_bent-over_row",
+      "name": "Barbell Bent-Over Row",
+      "category": "gym",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Middle Back (Rhomboids / Lats)",
+      "secondary_muscles": [
+        "Biceps",
+        "Rear Delts"
+      ],
+      "keywords": [
+        "bent over row",
+        "barbell row",
+        "bb row"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "weighted_pull-up",
+      "name": "Weighted Pull-Up",
+      "category": "gym",
+      "equipment": [
+        "pull-up bar",
+        "weight belt"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats (Width)",
+      "secondary_muscles": [
+        "Biceps",
+        "Rear Delts"
+      ],
+      "keywords": [
+        "pull up",
+        "weighted pullup",
+        "wide grip pullup"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "lat_pulldown",
+      "name": "Lat Pulldown",
+      "category": "gym",
+      "equipment": [
+        "cable machine",
+        "lat bar"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats (Width)",
+      "secondary_muscles": [
+        "Biceps",
+        "Rear Delts"
+      ],
+      "keywords": [
+        "lat pulldown",
+        "cable pulldown",
+        "wide grip pulldown"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "seated_cable_row",
+      "name": "Seated Cable Row",
+      "category": "gym",
+      "equipment": [
+        "cable machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Middle Back (Rhomboids \u2014 thickness)",
+      "secondary_muscles": [
+        "Biceps",
+        "Rear Delts"
+      ],
+      "keywords": [
+        "seated cable row",
+        "cable row",
+        "close grip row"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "t-bar_row",
+      "name": "T-Bar Row",
+      "category": "gym",
+      "equipment": [
+        "t-bar machine / landmine",
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Middle Back (thickness)",
+      "secondary_muscles": [
+        "Lats",
+        "Biceps",
+        "Rear Delts"
+      ],
+      "keywords": [
+        "t-bar row",
+        "landmine row"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "one-arm_dumbbell_row",
+      "name": "One-Arm Dumbbell Row",
+      "category": "gym",
+      "equipment": [
+        "dumbbell",
+        "bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats (unilateral)",
+      "secondary_muscles": [
+        "Middle Back",
+        "Biceps",
+        "Rear Delts"
+      ],
+      "keywords": [
+        "single arm row",
+        "one arm dumbbell row",
+        "db row"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "cable_face_pull",
+      "name": "Cable Face Pull",
+      "category": "gym",
+      "equipment": [
+        "cable machine",
+        "rope attachment"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Rear Delts / Upper Back",
+      "secondary_muscles": [
+        "Traps",
+        "Rotator Cuff"
+      ],
+      "keywords": [
+        "face pull",
+        "cable face pull",
+        "rear delt cable"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "machine_back_extension_hyperextension",
+      "name": "Machine Back Extension (Hyperextension)",
+      "category": "gym",
+      "equipment": [
+        "roman chair / GHD"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lower Back (Erector Spinae)",
+      "secondary_muscles": [
+        "Glutes",
+        "Hamstrings"
+      ],
+      "keywords": [
+        "back extension",
+        "hyperextension",
+        "roman chair"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "straight-arm_pulldown",
+      "name": "Straight-Arm Pulldown",
+      "category": "gym",
+      "equipment": [
+        "cable machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats (isolation)",
+      "secondary_muscles": [
+        "Triceps",
+        "Core"
+      ],
+      "keywords": [
+        "straight arm pulldown",
+        "lat pushdown"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "barbell_overhead_press",
+      "name": "Barbell Overhead Press",
+      "category": "gym",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Front / Anterior Delts",
+      "secondary_muscles": [
+        "Side Delts",
+        "Triceps"
+      ],
+      "keywords": [
+        "overhead press",
+        "military press",
+        "standing barbell press"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "dumbbell_shoulder_press",
+      "name": "Dumbbell Shoulder Press",
+      "category": "gym",
+      "equipment": [
+        "dumbbells",
+        "bench (optional)"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Front / Anterior Delts",
+      "secondary_muscles": [
+        "Side Delts",
+        "Triceps"
+      ],
+      "keywords": [
+        "dumbbell shoulder press",
+        "db overhead press"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "arnold_press",
+      "name": "Arnold Press",
+      "category": "gym",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Front + Side Delts (full delt)",
+      "secondary_muscles": [
+        "Triceps"
+      ],
+      "keywords": [
+        "arnold press"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "dumbbell_lateral_raise",
+      "name": "Dumbbell Lateral Raise",
+      "category": "gym",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Side / Lateral Delts",
+      "secondary_muscles": [
+        "Traps"
+      ],
+      "keywords": [
+        "lateral raise",
+        "side raise",
+        "db lateral raise"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "cable_lateral_raise",
+      "name": "Cable Lateral Raise",
+      "category": "gym",
+      "equipment": [
+        "cable machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Side / Lateral Delts",
+      "secondary_muscles": [
+        "Traps"
+      ],
+      "keywords": [
+        "cable lateral raise"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "front_raise",
+      "name": "Front Raise",
+      "category": "gym",
+      "equipment": [
+        "dumbbells or plate"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Front / Anterior Delts",
+      "secondary_muscles": [
+        "Side Delts"
+      ],
+      "keywords": [
+        "front raise",
+        "db front raise",
+        "plate front raise"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "reverse_pec_deck_fly",
+      "name": "Reverse Pec Deck Fly",
+      "category": "gym",
+      "equipment": [
+        "pec deck machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Rear / Posterior Delts",
+      "secondary_muscles": [
+        "Upper Back"
+      ],
+      "keywords": [
+        "reverse fly",
+        "rear delt fly",
+        "reverse pec deck"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "bent-over_dumbbell_rear_delt_raise",
+      "name": "Bent-Over Dumbbell Rear Delt Raise",
+      "category": "gym",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Rear / Posterior Delts",
+      "secondary_muscles": [
+        "Upper Back"
+      ],
+      "keywords": [
+        "rear delt raise",
+        "bent over lateral raise"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "barbell_upright_row",
+      "name": "Barbell Upright Row",
+      "category": "gym",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Side Delts + Traps",
+      "secondary_muscles": [
+        "Biceps"
+      ],
+      "keywords": [
+        "upright row",
+        "barbell upright row"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "barbell_shrug",
+      "name": "Barbell Shrug",
+      "category": "gym",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Trapezius (Upper Traps)",
+      "secondary_muscles": [
+        "Forearms"
+      ],
+      "keywords": [
+        "shrug",
+        "barbell shrug",
+        "trap shrug"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "barbell_back_squat",
+      "name": "Barbell Back Squat",
+      "category": "gym",
+      "equipment": [
+        "barbell",
+        "squat rack"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps",
+      "secondary_muscles": [
+        "Glutes",
+        "Hamstrings",
+        "Core"
+      ],
+      "keywords": [
+        "back squat",
+        "barbell squat",
+        "bb squat"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "barbell_front_squat",
+      "name": "Barbell Front Squat",
+      "category": "gym",
+      "equipment": [
+        "barbell",
+        "squat rack"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps (emphasis)",
+      "secondary_muscles": [
+        "Glutes",
+        "Core"
+      ],
+      "keywords": [
+        "front squat",
+        "barbell front squat"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "leg_press",
+      "name": "Leg Press",
+      "category": "gym",
+      "equipment": [
+        "leg press machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps",
+      "secondary_muscles": [
+        "Glutes",
+        "Hamstrings"
+      ],
+      "keywords": [
+        "leg press",
+        "machine leg press"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "leg_extension",
+      "name": "Leg Extension",
+      "category": "gym",
+      "equipment": [
+        "leg extension machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps (isolation)",
+      "secondary_muscles": [],
+      "keywords": [
+        "leg extension",
+        "quad extension"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "bulgarian_split_squat",
+      "name": "Bulgarian Split Squat",
+      "category": "gym",
+      "equipment": [
+        "dumbbells",
+        "bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps (unilateral)",
+      "secondary_muscles": [
+        "Glutes"
+      ],
+      "keywords": [
+        "bulgarian split squat",
+        "rear foot elevated split squat"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "barbell_romanian_deadlift",
+      "name": "Barbell Romanian Deadlift",
+      "category": "gym",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Hamstrings",
+      "secondary_muscles": [
+        "Glutes",
+        "Lower Back"
+      ],
+      "keywords": [
+        "romanian deadlift",
+        "rdl",
+        "stiff leg deadlift"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "lying_leg_curl",
+      "name": "Lying Leg Curl",
+      "category": "gym",
+      "equipment": [
+        "leg curl machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Hamstrings (isolation)",
+      "secondary_muscles": [],
+      "keywords": [
+        "leg curl",
+        "lying leg curl",
+        "hamstring curl"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "seated_leg_curl",
+      "name": "Seated Leg Curl",
+      "category": "gym",
+      "equipment": [
+        "leg curl machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Hamstrings (isolation)",
+      "secondary_muscles": [],
+      "keywords": [
+        "seated leg curl"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "barbell_good_morning",
+      "name": "Barbell Good Morning",
+      "category": "gym",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Hamstrings",
+      "secondary_muscles": [
+        "Lower Back",
+        "Glutes"
+      ],
+      "keywords": [
+        "good morning",
+        "barbell good morning"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "barbell_hip_thrust",
+      "name": "Barbell Hip Thrust",
+      "category": "gym",
+      "equipment": [
+        "barbell",
+        "bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Glutes",
+      "secondary_muscles": [
+        "Hamstrings"
+      ],
+      "keywords": [
+        "hip thrust",
+        "barbell hip thrust",
+        "glute bridge weighted"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "cable_glute_kickback",
+      "name": "Cable Glute Kickback",
+      "category": "gym",
+      "equipment": [
+        "cable machine",
+        "ankle strap"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Glutes (isolation)",
+      "secondary_muscles": [
+        "Hamstrings"
+      ],
+      "keywords": [
+        "cable kickback",
+        "glute kickback"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "weighted_walking_lunge",
+      "name": "Weighted Walking Lunge",
+      "category": "gym",
+      "equipment": [
+        "dumbbells or barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Glutes",
+      "secondary_muscles": [
+        "Quadriceps"
+      ],
+      "keywords": [
+        "walking lunge",
+        "weighted lunge"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "standing_calf_raise",
+      "name": "Standing Calf Raise",
+      "category": "gym",
+      "equipment": [
+        "calf raise machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Calves (Gastrocnemius)",
+      "secondary_muscles": [],
+      "keywords": [
+        "standing calf raise",
+        "calf raise machine"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "seated_calf_raise",
+      "name": "Seated Calf Raise",
+      "category": "gym",
+      "equipment": [
+        "seated calf machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Calves (Soleus)",
+      "secondary_muscles": [],
+      "keywords": [
+        "seated calf raise"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "barbell_curl",
+      "name": "Barbell Curl",
+      "category": "gym",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Biceps (overall)",
+      "secondary_muscles": [
+        "Forearms"
+      ],
+      "keywords": [
+        "barbell curl",
+        "bb curl"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_bicep_curl",
+      "name": "Dumbbell Bicep Curl",
+      "category": "gym",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Biceps",
+      "secondary_muscles": [
+        "Forearms"
+      ],
+      "keywords": [
+        "dumbbell curl",
+        "db curl",
+        "bicep curl"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "incline_dumbbell_curl",
+      "name": "Incline Dumbbell Curl",
+      "category": "gym",
+      "equipment": [
+        "dumbbells",
+        "incline bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Biceps (Long Head emphasis)",
+      "secondary_muscles": [
+        "Forearms"
+      ],
+      "keywords": [
+        "incline dumbbell curl",
+        "incline db curl"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "preacher_curl",
+      "name": "Preacher Curl",
+      "category": "gym",
+      "equipment": [
+        "ez bar or dumbbell",
+        "preacher bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Biceps (Short Head emphasis)",
+      "secondary_muscles": [
+        "Forearms"
+      ],
+      "keywords": [
+        "preacher curl"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "hammer_curl",
+      "name": "Hammer Curl",
+      "category": "gym",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Biceps + Brachialis",
+      "secondary_muscles": [
+        "Forearms"
+      ],
+      "keywords": [
+        "hammer curl",
+        "db hammer curl"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "close-grip_bench_press",
+      "name": "Close-Grip Bench Press",
+      "category": "gym",
+      "equipment": [
+        "barbell",
+        "bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Triceps (mass builder)",
+      "secondary_muscles": [
+        "Chest",
+        "Front Delts"
+      ],
+      "keywords": [
+        "close grip bench press",
+        "cgbp"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "cable_triceps_pushdown",
+      "name": "Cable Triceps Pushdown",
+      "category": "gym",
+      "equipment": [
+        "cable machine",
+        "rope or bar"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Triceps (Lateral Head)",
+      "secondary_muscles": [],
+      "keywords": [
+        "tricep pushdown",
+        "cable pushdown",
+        "rope pushdown"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "ez-bar_skull_crusher",
+      "name": "EZ-Bar Skull Crusher",
+      "category": "gym",
+      "equipment": [
+        "ez bar",
+        "bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Triceps (Long Head)",
+      "secondary_muscles": [],
+      "keywords": [
+        "skull crusher",
+        "lying tricep extension",
+        "ez bar extension"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "dumbbell_overhead_triceps_extension",
+      "name": "Dumbbell Overhead Triceps Extension",
+      "category": "gym",
+      "equipment": [
+        "dumbbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Triceps (Long Head emphasis)",
+      "secondary_muscles": [],
+      "keywords": [
+        "overhead tricep extension",
+        "db overhead extension"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "bench_machine_triceps_dip",
+      "name": "Bench/Machine Triceps Dip",
+      "category": "gym",
+      "equipment": [
+        "dip machine or bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Triceps",
+      "secondary_muscles": [
+        "Chest"
+      ],
+      "keywords": [
+        "tricep dips",
+        "bench dips machine"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "barbell_wrist_curl",
+      "name": "Barbell Wrist Curl",
+      "category": "gym",
+      "equipment": [
+        "barbell or dumbbell",
+        "bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Forearm Flexors",
+      "secondary_muscles": [],
+      "keywords": [
+        "wrist curl",
+        "forearm curl"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "reverse_curl",
+      "name": "Reverse Curl",
+      "category": "gym",
+      "equipment": [
+        "barbell or dumbbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Forearm Extensors + Brachioradialis",
+      "secondary_muscles": [
+        "Biceps"
+      ],
+      "keywords": [
+        "reverse curl",
+        "reverse grip curl"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "cable_crunch",
+      "name": "Cable Crunch",
+      "category": "gym",
+      "equipment": [
+        "cable machine",
+        "rope attachment"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Upper Abs (Rectus Abdominis)",
+      "secondary_muscles": [],
+      "keywords": [
+        "cable crunch",
+        "kneeling cable crunch"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "hanging_leg_raise",
+      "name": "Hanging Leg Raise",
+      "category": "gym",
+      "equipment": [
+        "pull-up bar"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Lower Abs",
+      "secondary_muscles": [
+        "Hip Flexors"
+      ],
+      "keywords": [
+        "hanging leg raise",
+        "hanging knee raise"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "machine_ab_crunch",
+      "name": "Machine Ab Crunch",
+      "category": "gym",
+      "equipment": [
+        "ab crunch machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Upper Abs",
+      "secondary_muscles": [],
+      "keywords": [
+        "ab machine crunch",
+        "seated ab crunch"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "cable_woodchopper",
+      "name": "Cable Woodchopper",
+      "category": "gym",
+      "equipment": [
+        "cable machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "fat_loss",
+        "muscle_gain"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Obliques",
+      "secondary_muscles": [
+        "Lower Back"
+      ],
+      "keywords": [
+        "cable woodchopper",
+        "wood chop"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "weighted_russian_twist",
+      "name": "Weighted Russian Twist",
+      "category": "gym",
+      "equipment": [
+        "plate or dumbbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "fat_loss",
+        "muscle_gain"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Obliques",
+      "secondary_muscles": [],
+      "keywords": [
+        "russian twist",
+        "weighted twist"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "weighted_decline_sit-up",
+      "name": "Weighted Decline Sit-Up",
+      "category": "gym",
+      "equipment": [
+        "decline bench",
+        "plate"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Upper + Full Abs",
+      "secondary_muscles": [
+        "Hip Flexors"
+      ],
+      "keywords": [
+        "decline situp",
+        "weighted situp"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "ab_wheel_rollout",
+      "name": "Ab Wheel Rollout",
+      "category": "gym",
+      "equipment": [
+        "ab wheel"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Full Core (Transverse Abdominis)",
+      "secondary_muscles": [
+        "Lats",
+        "Shoulders"
+      ],
+      "keywords": [
+        "ab rollout",
+        "ab wheel"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "captain's_chair_leg_raise",
+      "name": "Captain's Chair Leg Raise",
+      "category": "gym",
+      "equipment": [
+        "captain's chair machine"
+      ],
+      "type": "strength",
+      "goal": [
+        "fat_loss"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Lower Abs",
+      "secondary_muscles": [
+        "Hip Flexors"
+      ],
+      "keywords": [
+        "captains chair",
+        "knee raise machine"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "weighted_side_plank",
+      "name": "Weighted Side Plank",
+      "category": "gym",
+      "equipment": [
+        "plate"
+      ],
+      "type": "strength",
+      "goal": [
+        "fat_loss",
+        "muscle_gain"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Obliques",
+      "secondary_muscles": [
+        "Shoulders"
+      ],
+      "keywords": [
+        "side plank",
+        "weighted side plank"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "landmine_twist",
+      "name": "Landmine Twist",
+      "category": "gym",
+      "equipment": [
+        "barbell",
+        "landmine attachment"
+      ],
+      "type": "strength",
+      "goal": [
+        "fat_loss",
+        "muscle_gain"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Obliques (rotational)",
+      "secondary_muscles": [
+        "Shoulders"
+      ],
+      "keywords": [
+        "landmine twist",
+        "landmine rotation"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "treadmill_running",
+      "name": "Treadmill Running",
+      "category": "gym",
+      "equipment": [
+        "treadmill"
+      ],
+      "type": "cardio",
+      "goal": [
+        "fat_loss",
+        "cardio",
+        "endurance"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Quadriceps",
+        "Calves"
+      ],
+      "keywords": [
+        "treadmill run",
+        "running cardio",
+        "treadmill jog"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "stationary_cycling",
+      "name": "Stationary Cycling",
+      "category": "gym",
+      "equipment": [
+        "exercise bike"
+      ],
+      "type": "cardio",
+      "goal": [
+        "fat_loss",
+        "cardio",
+        "endurance"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Quadriceps",
+        "Calves"
+      ],
+      "keywords": [
+        "stationary bike",
+        "cycling cardio",
+        "spin bike"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "rowing_machine",
+      "name": "Rowing Machine",
+      "category": "gym",
+      "equipment": [
+        "rowing ergometer"
+      ],
+      "type": "cardio",
+      "goal": [
+        "fat_loss",
+        "cardio",
+        "endurance"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Back",
+        "Legs",
+        "Arms"
+      ],
+      "keywords": [
+        "rowing machine",
+        "ergometer",
+        "rower cardio"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "elliptical_trainer",
+      "name": "Elliptical Trainer",
+      "category": "gym",
+      "equipment": [
+        "elliptical machine"
+      ],
+      "type": "cardio",
+      "goal": [
+        "fat_loss",
+        "cardio",
+        "endurance"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Quadriceps",
+        "Glutes"
+      ],
+      "keywords": [
+        "elliptical",
+        "cross trainer"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "stair_climber",
+      "name": "Stair Climber",
+      "category": "gym",
+      "equipment": [
+        "stairmaster / stepmill"
+      ],
+      "type": "cardio",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Glutes",
+        "Quadriceps",
+        "Calves"
+      ],
+      "keywords": [
+        "stair climber",
+        "stairmaster",
+        "step mill"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "jump_rope",
+      "name": "Jump Rope",
+      "category": "gym",
+      "equipment": [
+        "jump rope"
+      ],
+      "type": "cardio",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Calves",
+        "Shoulders"
+      ],
+      "keywords": [
+        "jump rope",
+        "skipping rope"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "battle_ropes",
+      "name": "Battle Ropes",
+      "category": "gym",
+      "equipment": [
+        "battle ropes"
+      ],
+      "type": "hiit",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Shoulders",
+        "Core",
+        "Arms"
+      ],
+      "keywords": [
+        "battle ropes",
+        "rope slams"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "kettlebell_swing",
+      "name": "Kettlebell Swing",
+      "category": "gym",
+      "equipment": [
+        "kettlebell"
+      ],
+      "type": "hiit",
+      "goal": [
+        "fat_loss",
+        "cardio",
+        "muscle_gain"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Glutes",
+        "Hamstrings",
+        "Core"
+      ],
+      "keywords": [
+        "kettlebell swing",
+        "kb swing"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "burpees_gym",
+      "name": "Burpees (Gym)",
+      "category": "gym",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "hiit",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Full Body",
+      "secondary_muscles": [
+        "Chest",
+        "Quadriceps",
+        "Core"
+      ],
+      "keywords": [
+        "burpees",
+        "burpee hiit"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "box_jumps",
+      "name": "Box Jumps",
+      "category": "gym",
+      "equipment": [
+        "plyo box"
+      ],
+      "type": "hiit",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Quadriceps / Glutes (explosive)",
+      "secondary_muscles": [
+        "Calves"
+      ],
+      "keywords": [
+        "box jump",
+        "plyo box jump"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "sled_push___pull",
+      "name": "Sled Push / Pull",
+      "category": "gym",
+      "equipment": [
+        "weight sled"
+      ],
+      "type": "hiit",
+      "goal": [
+        "fat_loss",
+        "cardio",
+        "strength"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Full Body",
+      "secondary_muscles": [
+        "Quadriceps",
+        "Glutes",
+        "Shoulders"
+      ],
+      "keywords": [
+        "sled push",
+        "prowler push",
+        "sled pull"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "assault_bike_air_bike",
+      "name": "Assault Bike (Air Bike)",
+      "category": "gym",
+      "equipment": [
+        "assault bike"
+      ],
+      "type": "hiit",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Legs",
+        "Arms"
+      ],
+      "keywords": [
+        "assault bike",
+        "air bike",
+        "fan bike"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "push-up",
+      "name": "Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest",
+      "secondary_muscles": [
+        "Triceps",
+        "Front Delts",
+        "Core"
+      ],
+      "keywords": [
+        "pushup",
+        "push up",
+        "standard pushup"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "incline_push-up",
+      "name": "Incline Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight",
+        "raised surface"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Lower Chest (emphasis)",
+      "secondary_muscles": [
+        "Triceps",
+        "Front Delts"
+      ],
+      "keywords": [
+        "incline pushup",
+        "elevated hands pushup"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "decline_push-up",
+      "name": "Decline Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight",
+        "chair or step"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Upper Chest (emphasis)",
+      "secondary_muscles": [
+        "Front Delts",
+        "Triceps"
+      ],
+      "keywords": [
+        "decline pushup",
+        "feet elevated pushup"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "diamond_push-up",
+      "name": "Diamond Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Inner / Middle Chest",
+      "secondary_muscles": [
+        "Triceps"
+      ],
+      "keywords": [
+        "diamond pushup",
+        "close grip pushup"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "wide_push-up",
+      "name": "Wide Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Outer / Middle Chest",
+      "secondary_muscles": [
+        "Front Delts"
+      ],
+      "keywords": [
+        "wide pushup",
+        "wide grip pushup"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "archer_push-up",
+      "name": "Archer Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest (unilateral)",
+      "secondary_muscles": [
+        "Triceps",
+        "Front Delts"
+      ],
+      "keywords": [
+        "archer pushup"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "superman_hold",
+      "name": "Superman Hold",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lower Back (Erector Spinae)",
+      "secondary_muscles": [
+        "Glutes"
+      ],
+      "keywords": [
+        "superman exercise",
+        "bodyweight back extension"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "doorframe___towel_row",
+      "name": "Doorframe / Towel Row",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight",
+        "towel or doorframe"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Middle Back (Lats)",
+      "secondary_muscles": [
+        "Biceps"
+      ],
+      "keywords": [
+        "doorway row",
+        "towel row",
+        "bodyweight row"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "reverse_snow_angel",
+      "name": "Reverse Snow Angel",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Rear Delts / Upper Back",
+      "secondary_muscles": [
+        "Traps"
+      ],
+      "keywords": [
+        "reverse snow angel",
+        "prone y-raise"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "bird_dog",
+      "name": "Bird Dog",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lower Back (stability)",
+      "secondary_muscles": [
+        "Core",
+        "Glutes"
+      ],
+      "keywords": [
+        "bird dog exercise",
+        "core stability"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "pike_push-up",
+      "name": "Pike Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Front / Side Delts",
+      "secondary_muscles": [
+        "Triceps"
+      ],
+      "keywords": [
+        "pike pushup",
+        "shoulder pushup"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "wall_handstand_hold",
+      "name": "Wall Handstand Hold",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight",
+        "wall"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Front / Side Delts (isometric)",
+      "secondary_muscles": [
+        "Triceps",
+        "Core"
+      ],
+      "keywords": [
+        "wall handstand",
+        "handstand hold"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "arm_circles",
+      "name": "Arm Circles",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "endurance"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Side / Lateral Delts",
+      "secondary_muscles": [],
+      "keywords": [
+        "arm circles",
+        "shoulder warmup"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "plank_shoulder_taps",
+      "name": "Plank Shoulder Taps",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Front Delts",
+      "secondary_muscles": [
+        "Core"
+      ],
+      "keywords": [
+        "plank shoulder taps"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "wall_walk",
+      "name": "Wall Walk",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight",
+        "wall"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Front / Side Delts",
+      "secondary_muscles": [
+        "Core"
+      ],
+      "keywords": [
+        "wall walk exercise"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "bodyweight_squat",
+      "name": "Bodyweight Squat",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps",
+      "secondary_muscles": [
+        "Glutes"
+      ],
+      "keywords": [
+        "bodyweight squat",
+        "air squat"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "jump_squat",
+      "name": "Jump Squat",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "hiit",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps (explosive)",
+      "secondary_muscles": [
+        "Glutes",
+        "Calves"
+      ],
+      "keywords": [
+        "jump squat",
+        "squat jump"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "walking_lunge",
+      "name": "Walking Lunge",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Glutes",
+      "secondary_muscles": [
+        "Quadriceps"
+      ],
+      "keywords": [
+        "walking lunge bodyweight",
+        "lunge"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "reverse_lunge",
+      "name": "Reverse Lunge",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Glutes",
+      "secondary_muscles": [
+        "Quadriceps"
+      ],
+      "keywords": [
+        "reverse lunge"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "bodyweight_bulgarian_split_squat",
+      "name": "Bodyweight Bulgarian Split Squat",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight",
+        "chair"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps (unilateral)",
+      "secondary_muscles": [
+        "Glutes"
+      ],
+      "keywords": [
+        "chair split squat",
+        "rear foot elevated split squat bodyweight"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "glute_bridge",
+      "name": "Glute Bridge",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Glutes",
+      "secondary_muscles": [
+        "Hamstrings"
+      ],
+      "keywords": [
+        "glute bridge",
+        "hip bridge"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "single-leg_glute_bridge",
+      "name": "Single-Leg Glute Bridge",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Glutes (unilateral)",
+      "secondary_muscles": [
+        "Hamstrings"
+      ],
+      "keywords": [
+        "single leg glute bridge"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "bodyweight_calf_raise",
+      "name": "Bodyweight Calf Raise",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Calves",
+      "secondary_muscles": [],
+      "keywords": [
+        "bodyweight calf raise",
+        "calf raise no weight"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "wall_sit",
+      "name": "Wall Sit",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight",
+        "wall"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "endurance"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps (isometric)",
+      "secondary_muscles": [],
+      "keywords": [
+        "wall sit",
+        "wall squat hold"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "chair___bench_dip",
+      "name": "Chair / Bench Dip",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight",
+        "chair"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Triceps",
+      "secondary_muscles": [
+        "Chest"
+      ],
+      "keywords": [
+        "chair dip",
+        "bench dip",
+        "tricep dip bodyweight"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "pseudo_planche_push-up",
+      "name": "Pseudo Planche Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Triceps + Front Delts",
+      "secondary_muscles": [
+        "Chest"
+      ],
+      "keywords": [
+        "pseudo planche pushup"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "isometric_bicep_hold",
+      "name": "Isometric Bicep Hold",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight / self-resistance"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Biceps",
+      "secondary_muscles": [],
+      "keywords": [
+        "isometric bicep curl",
+        "self resistance curl"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "bodyweight_inverted_row",
+      "name": "Bodyweight Inverted Row",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight",
+        "sturdy table"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Biceps",
+      "secondary_muscles": [
+        "Back"
+      ],
+      "keywords": [
+        "inverted row",
+        "bodyweight row biceps"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "wrist_rotations",
+      "name": "Wrist Rotations",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "endurance"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Forearms",
+      "secondary_muscles": [],
+      "keywords": [
+        "wrist rotation",
+        "forearm exercise"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "plank",
+      "name": "Plank",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Full Core (Transverse Abdominis)",
+      "secondary_muscles": [
+        "Shoulders"
+      ],
+      "keywords": [
+        "plank",
+        "forearm plank"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "crunches",
+      "name": "Crunches",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Upper Abs",
+      "secondary_muscles": [],
+      "keywords": [
+        "crunches",
+        "ab crunch"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "bicycle_crunch",
+      "name": "Bicycle Crunch",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "fat_loss"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Obliques",
+      "secondary_muscles": [
+        "Upper Abs",
+        "Lower Abs"
+      ],
+      "keywords": [
+        "bicycle crunch"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "lying_leg_raise",
+      "name": "Lying Leg Raise",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Lower Abs",
+      "secondary_muscles": [
+        "Hip Flexors"
+      ],
+      "keywords": [
+        "lying leg raise",
+        "floor leg raise"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "mountain_climbers",
+      "name": "Mountain Climbers",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "hiit",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Lower Abs",
+      "secondary_muscles": [
+        "Shoulders",
+        "Cardio"
+      ],
+      "keywords": [
+        "mountain climbers"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "russian_twist_bodyweight",
+      "name": "Russian Twist (Bodyweight)",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "fat_loss"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Obliques",
+      "secondary_muscles": [],
+      "keywords": [
+        "russian twist bodyweight"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "side_plank",
+      "name": "Side Plank",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "fat_loss",
+        "muscle_gain"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Obliques",
+      "secondary_muscles": [
+        "Shoulders"
+      ],
+      "keywords": [
+        "side plank"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "flutter_kicks",
+      "name": "Flutter Kicks",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "fat_loss"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Lower Abs",
+      "secondary_muscles": [
+        "Hip Flexors"
+      ],
+      "keywords": [
+        "flutter kicks"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "jumping_jacks",
+      "name": "Jumping Jacks",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "cardio",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Shoulders",
+        "Calves"
+      ],
+      "keywords": [
+        "jumping jacks"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "high_knees",
+      "name": "High Knees",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "cardio",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Hip Flexors",
+        "Core"
+      ],
+      "keywords": [
+        "high knees"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "burpees_home",
+      "name": "Burpees (Home)",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "hiit",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Full Body",
+      "secondary_muscles": [
+        "Chest",
+        "Quadriceps",
+        "Core"
+      ],
+      "keywords": [
+        "burpee",
+        "home burpee"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "butt_kicks",
+      "name": "Butt Kicks",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "cardio",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Hamstrings"
+      ],
+      "keywords": [
+        "butt kicks"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "star_jumps",
+      "name": "Star Jumps",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "cardio",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Full Body",
+      "secondary_muscles": [
+        "Shoulders",
+        "Calves"
+      ],
+      "keywords": [
+        "star jump"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "squat_jumps",
+      "name": "Squat Jumps",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "hiit",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Quadriceps / Glutes (explosive)",
+      "secondary_muscles": [
+        "Calves"
+      ],
+      "keywords": [
+        "squat jump cardio"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "skater_jumps",
+      "name": "Skater Jumps",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "hiit",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Glutes / Quadriceps (lateral)",
+      "secondary_muscles": [
+        "Calves"
+      ],
+      "keywords": [
+        "skater jump",
+        "lateral bound"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "shadow_boxing",
+      "name": "Shadow Boxing",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "cardio",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Cardio",
+      "primary_muscle": "Cardiovascular System",
+      "secondary_muscles": [
+        "Shoulders",
+        "Core"
+      ],
+      "keywords": [
+        "shadow boxing cardio"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_floor_press",
+      "name": "Dumbbell Floor Press",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest",
+      "secondary_muscles": [
+        "Triceps",
+        "Front Delts"
+      ],
+      "keywords": [
+        "floor dumbbell press",
+        "db bench press home"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_floor_fly",
+      "name": "Dumbbell Floor Fly",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest (isolation)",
+      "secondary_muscles": [
+        "Front Delts"
+      ],
+      "keywords": [
+        "dumbbell floor fly",
+        "db fly home"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_incline_press_elevated_surface",
+      "name": "Dumbbell Incline Press (Elevated Surface)",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells",
+        "stairs or bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Upper Chest",
+      "secondary_muscles": [
+        "Triceps",
+        "Front Delts"
+      ],
+      "keywords": [
+        "incline db press home"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "bent-over_dumbbell_row_home",
+      "name": "Bent-Over Dumbbell Row (Home)",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats + Middle Back",
+      "secondary_muscles": [
+        "Biceps",
+        "Rear Delts"
+      ],
+      "keywords": [
+        "dumbbell row home",
+        "bent over db row"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_deadlift",
+      "name": "Dumbbell Deadlift",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lower Back",
+      "secondary_muscles": [
+        "Hamstrings",
+        "Glutes"
+      ],
+      "keywords": [
+        "dumbbell deadlift",
+        "db deadlift"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_pullover",
+      "name": "Dumbbell Pullover",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells",
+        "bench or floor"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats",
+      "secondary_muscles": [
+        "Chest",
+        "Serratus Anterior"
+      ],
+      "keywords": [
+        "dumbbell pullover",
+        "db pullover"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "dumbbell_shoulder_press_home",
+      "name": "Dumbbell Shoulder Press (Home)",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Front / Anterior Delts",
+      "secondary_muscles": [
+        "Side Delts",
+        "Triceps"
+      ],
+      "keywords": [
+        "db shoulder press home"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_lateral_raise_home",
+      "name": "Dumbbell Lateral Raise (Home)",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Side / Lateral Delts",
+      "secondary_muscles": [],
+      "keywords": [
+        "db lateral raise home"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_front_raise_home",
+      "name": "Dumbbell Front Raise (Home)",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Front / Anterior Delts",
+      "secondary_muscles": [],
+      "keywords": [
+        "db front raise home"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_rear_delt_fly_home",
+      "name": "Dumbbell Rear Delt Fly (Home)",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Rear / Posterior Delts",
+      "secondary_muscles": [
+        "Upper Back"
+      ],
+      "keywords": [
+        "db rear delt fly home"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_shrug_home",
+      "name": "Dumbbell Shrug (Home)",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Trapezius",
+      "secondary_muscles": [],
+      "keywords": [
+        "dumbbell shrug home"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_goblet_squat",
+      "name": "Dumbbell Goblet Squat",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps",
+      "secondary_muscles": [
+        "Glutes",
+        "Core"
+      ],
+      "keywords": [
+        "goblet squat",
+        "dumbbell goblet squat"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_romanian_deadlift_home",
+      "name": "Dumbbell Romanian Deadlift (Home)",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Hamstrings",
+      "secondary_muscles": [
+        "Glutes"
+      ],
+      "keywords": [
+        "dumbbell rdl home"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_lunge",
+      "name": "Dumbbell Lunge",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Glutes",
+      "secondary_muscles": [
+        "Quadriceps"
+      ],
+      "keywords": [
+        "dumbbell lunge"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_step-up",
+      "name": "Dumbbell Step-Up",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells",
+        "step or chair"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Glutes",
+      "secondary_muscles": [
+        "Quadriceps"
+      ],
+      "keywords": [
+        "dumbbell step up"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "dumbbell_calf_raise_home",
+      "name": "Dumbbell Calf Raise (Home)",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Calves",
+      "secondary_muscles": [],
+      "keywords": [
+        "db calf raise home"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_bicep_curl_home",
+      "name": "Dumbbell Bicep Curl (Home)",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Biceps",
+      "secondary_muscles": [
+        "Forearms"
+      ],
+      "keywords": [
+        "db curl home",
+        "dumbbell bicep curl home"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_hammer_curl_home",
+      "name": "Dumbbell Hammer Curl (Home)",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Biceps + Brachialis",
+      "secondary_muscles": [
+        "Forearms"
+      ],
+      "keywords": [
+        "db hammer curl home"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_overhead_triceps_extension_home",
+      "name": "Dumbbell Overhead Triceps Extension (Home)",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Triceps (Long Head)",
+      "secondary_muscles": [],
+      "keywords": [
+        "db overhead extension home"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "dumbbell_triceps_kickback",
+      "name": "Dumbbell Triceps Kickback",
+      "category": "home_dumbbell",
+      "equipment": [
+        "dumbbells"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Triceps",
+      "secondary_muscles": [],
+      "keywords": [
+        "db tricep kickback"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "barbell_back_squat_home",
+      "name": "Barbell Back Squat (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell",
+        "rack (optional)"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps",
+      "secondary_muscles": [
+        "Glutes",
+        "Hamstrings"
+      ],
+      "keywords": [
+        "home barbell squat"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "barbell_deadlift_home",
+      "name": "Barbell Deadlift (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lower Back",
+      "secondary_muscles": [
+        "Glutes",
+        "Hamstrings",
+        "Traps"
+      ],
+      "keywords": [
+        "home deadlift barbell"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "barbell_bench_press_home",
+      "name": "Barbell Bench Press (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell",
+        "bench",
+        "rack (optional)"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest",
+      "secondary_muscles": [
+        "Triceps",
+        "Front Delts"
+      ],
+      "keywords": [
+        "home bench press barbell"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "barbell_overhead_press_home",
+      "name": "Barbell Overhead Press (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Front / Anterior Delts",
+      "secondary_muscles": [
+        "Side Delts",
+        "Triceps"
+      ],
+      "keywords": [
+        "home overhead press barbell"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "barbell_bent-over_row_home",
+      "name": "Barbell Bent-Over Row (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats + Middle Back",
+      "secondary_muscles": [
+        "Biceps",
+        "Rear Delts"
+      ],
+      "keywords": [
+        "home barbell row"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "barbell_romanian_deadlift_home",
+      "name": "Barbell Romanian Deadlift (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Hamstrings",
+      "secondary_muscles": [
+        "Glutes"
+      ],
+      "keywords": [
+        "home rdl barbell"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "barbell_front_squat_home",
+      "name": "Barbell Front Squat (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell",
+        "rack (optional)"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps (emphasis)",
+      "secondary_muscles": [
+        "Glutes",
+        "Core"
+      ],
+      "keywords": [
+        "home front squat barbell"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "barbell_hip_thrust_home",
+      "name": "Barbell Hip Thrust (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell",
+        "bench or couch"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Glutes",
+      "secondary_muscles": [
+        "Hamstrings"
+      ],
+      "keywords": [
+        "home barbell hip thrust"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "barbell_curl_home",
+      "name": "Barbell Curl (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Biceps",
+      "secondary_muscles": [
+        "Forearms"
+      ],
+      "keywords": [
+        "home barbell curl"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "barbell_skull_crusher_home",
+      "name": "Barbell Skull Crusher (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell or ez bar",
+        "bench"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Arms",
+      "primary_muscle": "Triceps (Long Head)",
+      "secondary_muscles": [],
+      "keywords": [
+        "home skull crusher barbell"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "barbell_shrug_home",
+      "name": "Barbell Shrug (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Trapezius",
+      "secondary_muscles": [
+        "Forearms"
+      ],
+      "keywords": [
+        "home barbell shrug"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "barbell_good_morning_home",
+      "name": "Barbell Good Morning (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Hamstrings",
+      "secondary_muscles": [
+        "Lower Back"
+      ],
+      "keywords": [
+        "home good morning barbell"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "barbell_lunge_home",
+      "name": "Barbell Lunge (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Glutes",
+      "secondary_muscles": [
+        "Quadriceps"
+      ],
+      "keywords": [
+        "home barbell lunge"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "barbell_upright_row_home",
+      "name": "Barbell Upright Row (Home)",
+      "category": "home_barbell",
+      "equipment": [
+        "barbell"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Shoulders",
+      "primary_muscle": "Side Delts + Traps",
+      "secondary_muscles": [
+        "Biceps"
+      ],
+      "keywords": [
+        "home upright row barbell"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "knee_push-up",
+      "name": "Knee Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest (beginner regression)",
+      "secondary_muscles": [
+        "Triceps",
+        "Front Delts"
+      ],
+      "keywords": [
+        "knee pushup",
+        "modified pushup",
+        "beginner pushup"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "hindu_push-up",
+      "name": "Hindu Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "cardio"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest + Shoulder Mobility",
+      "secondary_muscles": [
+        "Front Delts",
+        "Triceps",
+        "Lower Back"
+      ],
+      "keywords": [
+        "hindu pushup",
+        "dive bomber pushup"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "clap_push-up",
+      "name": "Clap Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "hiit",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest (explosive/power)",
+      "secondary_muscles": [
+        "Triceps",
+        "Front Delts"
+      ],
+      "keywords": [
+        "clap pushup",
+        "plyo pushup",
+        "explosive pushup"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "spiderman_push-up",
+      "name": "Spiderman Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest + Obliques",
+      "secondary_muscles": [
+        "Triceps",
+        "Hip Flexors"
+      ],
+      "keywords": [
+        "spiderman pushup"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "one-arm_push-up",
+      "name": "One-Arm Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest (unilateral)",
+      "secondary_muscles": [
+        "Triceps",
+        "Core"
+      ],
+      "keywords": [
+        "one arm pushup",
+        "single arm pushup"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "staggered_push-up",
+      "name": "Staggered Push-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Chest",
+      "primary_muscle": "Middle Chest (uneven load)",
+      "secondary_muscles": [
+        "Triceps",
+        "Front Delts"
+      ],
+      "keywords": [
+        "staggered pushup",
+        "uneven pushup"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "pull-up",
+      "name": "Pull-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "pull-up bar"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats (Width)",
+      "secondary_muscles": [
+        "Biceps",
+        "Rear Delts"
+      ],
+      "keywords": [
+        "pull up",
+        "bodyweight pullup",
+        "standard pullup"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "chin-up",
+      "name": "Chin-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "pull-up bar"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats + Biceps (underhand grip)",
+      "secondary_muscles": [
+        "Rear Delts"
+      ],
+      "keywords": [
+        "chin up",
+        "underhand pullup",
+        "supinated pullup"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "wide-grip_pull-up",
+      "name": "Wide-Grip Pull-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "pull-up bar"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats (width emphasis)",
+      "secondary_muscles": [
+        "Biceps",
+        "Rear Delts"
+      ],
+      "keywords": [
+        "wide grip pullup"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "neutral-grip_pull-up",
+      "name": "Neutral-Grip Pull-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "pull-up bar"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats + Biceps (balanced)",
+      "secondary_muscles": [
+        "Forearms"
+      ],
+      "keywords": [
+        "neutral grip pullup",
+        "hammer grip pullup"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "negative_pull-up",
+      "name": "Negative Pull-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "pull-up bar"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats (eccentric, beginner regression)",
+      "secondary_muscles": [
+        "Biceps"
+      ],
+      "keywords": [
+        "negative pullup",
+        "eccentric pullup",
+        "assisted pullup progression"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "commando_pull-up",
+      "name": "Commando Pull-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "pull-up bar"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats + Obliques (side-to-side)",
+      "secondary_muscles": [
+        "Biceps"
+      ],
+      "keywords": [
+        "commando pullup"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "muscle-up",
+      "name": "Muscle-Up",
+      "category": "home_no_equipment",
+      "equipment": [
+        "pull-up bar"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Back",
+      "primary_muscle": "Lats + Chest + Triceps (compound)",
+      "secondary_muscles": [
+        "Front Delts",
+        "Core"
+      ],
+      "keywords": [
+        "muscle up",
+        "bar muscle up"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "sumo_squat",
+      "name": "Sumo Squat",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Inner Thighs / Adductors",
+      "secondary_muscles": [
+        "Glutes",
+        "Quadriceps"
+      ],
+      "keywords": [
+        "sumo squat",
+        "wide stance squat"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "pistol_squat",
+      "name": "Pistol Squat",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "strength"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps (single-leg)",
+      "secondary_muscles": [
+        "Glutes",
+        "Core"
+      ],
+      "keywords": [
+        "pistol squat",
+        "single leg squat"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "squat_pulse",
+      "name": "Squat Pulse",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Quadriceps (endurance/burn)",
+      "secondary_muscles": [
+        "Glutes"
+      ],
+      "keywords": [
+        "squat pulse",
+        "pulsing squat"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "cossack_squat",
+      "name": "Cossack Squat",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Adductors + Quadriceps (lateral)",
+      "secondary_muscles": [
+        "Glutes"
+      ],
+      "keywords": [
+        "cossack squat",
+        "lateral squat"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "jump_lunge",
+      "name": "Jump Lunge",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "hiit",
+      "goal": [
+        "fat_loss",
+        "cardio"
+      ],
+      "muscle_group": "Legs",
+      "primary_muscle": "Glutes / Quadriceps (explosive)",
+      "secondary_muscles": [
+        "Calves"
+      ],
+      "keywords": [
+        "jump lunge",
+        "alternating lunge jump"
+      ],
+      "difficulty": "advanced"
+    },
+    {
+      "id": "reverse_crunch",
+      "name": "Reverse Crunch",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain",
+        "fat_loss"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Lower Abs",
+      "secondary_muscles": [
+        "Hip Flexors"
+      ],
+      "keywords": [
+        "reverse crunch"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "vertical_leg_crunch",
+      "name": "Vertical Leg Crunch",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Upper Abs + Lower Abs",
+      "secondary_muscles": [],
+      "keywords": [
+        "vertical leg crunch",
+        "legs up crunch"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "cross-body_crunch",
+      "name": "Cross-Body Crunch",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "fat_loss"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Obliques",
+      "secondary_muscles": [
+        "Upper Abs"
+      ],
+      "keywords": [
+        "cross body crunch",
+        "oblique crunch"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "long_arm_crunch",
+      "name": "Long Arm Crunch",
+      "category": "home_no_equipment",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "strength",
+      "goal": [
+        "muscle_gain"
+      ],
+      "muscle_group": "Core",
+      "primary_muscle": "Upper Abs",
+      "secondary_muscles": [],
+      "keywords": [
+        "long arm crunch"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "jumping_jacks_warm-up",
+      "name": "Jumping Jacks (Warm-Up)",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Full Body (raises heart rate)",
+      "secondary_muscles": [
+        "Shoulders",
+        "Calves"
+      ],
+      "keywords": [
+        "warm up jumping jacks",
+        "pre workout jumping jacks"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "high_knee_march_warm-up",
+      "name": "High Knee March (Warm-Up)",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Hip Flexors (activation)",
+      "secondary_muscles": [
+        "Core"
+      ],
+      "keywords": [
+        "high knee march",
+        "warm up high knees"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "butt_kicks_warm-up",
+      "name": "Butt Kicks (Warm-Up)",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Hamstrings (activation)",
+      "secondary_muscles": [
+        "Quadriceps"
+      ],
+      "keywords": [
+        "warm up butt kicks",
+        "heel to glute"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "leg_swings_front-to-back",
+      "name": "Leg Swings (Front-to-Back)",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight",
+        "wall or support"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Hip Flexors & Hamstrings (dynamic stretch)",
+      "secondary_muscles": [
+        "Glutes"
+      ],
+      "keywords": [
+        "leg swings",
+        "front to back leg swing",
+        "hip mobility"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "leg_swings_side-to-side",
+      "name": "Leg Swings (Side-to-Side)",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight",
+        "wall or support"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Adductors & Abductors (dynamic stretch)",
+      "secondary_muscles": [
+        "Glutes"
+      ],
+      "keywords": [
+        "lateral leg swings",
+        "side to side leg swing"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "arm_circles_warm-up",
+      "name": "Arm Circles (Warm-Up)",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Shoulder Joint (mobility)",
+      "secondary_muscles": [
+        "Rotator Cuff"
+      ],
+      "keywords": [
+        "warm up arm circles",
+        "shoulder mobility circles"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "torso_twists",
+      "name": "Torso Twists",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Obliques / Spine (mobility)",
+      "secondary_muscles": [
+        "Lower Back"
+      ],
+      "keywords": [
+        "torso twists",
+        "standing trunk rotation"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "hip_circles",
+      "name": "Hip Circles",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Hip Joint (mobility)",
+      "secondary_muscles": [
+        "Glutes"
+      ],
+      "keywords": [
+        "hip circles",
+        "hip rotations warmup"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "neck_rolls",
+      "name": "Neck Rolls",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Neck (mobility)",
+      "secondary_muscles": [],
+      "keywords": [
+        "neck rolls",
+        "neck mobility warmup"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "cat-cow_stretch",
+      "name": "Cat-Cow Stretch",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Spine (dynamic mobility)",
+      "secondary_muscles": [
+        "Core"
+      ],
+      "keywords": [
+        "cat cow stretch",
+        "cat camel stretch"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "world's_greatest_stretch",
+      "name": "World's Greatest Stretch",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Hips, Hamstrings & Thoracic Spine (full-body mobility)",
+      "secondary_muscles": [
+        "Shoulders",
+        "Core"
+      ],
+      "keywords": [
+        "worlds greatest stretch",
+        "full body dynamic stretch"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "inchworm_walkout",
+      "name": "Inchworm Walkout",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Hamstrings + Shoulders (activation)",
+      "secondary_muscles": [
+        "Core"
+      ],
+      "keywords": [
+        "inchworm walkout",
+        "inchworm stretch"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "walking_knee_hugs",
+      "name": "Walking Knee Hugs",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Glutes & Hip Flexors (dynamic stretch)",
+      "secondary_muscles": [
+        "Hamstrings"
+      ],
+      "keywords": [
+        "walking knee hug",
+        "knee to chest walk"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "ankle_circles",
+      "name": "Ankle Circles",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Ankles (mobility)",
+      "secondary_muscles": [
+        "Calves"
+      ],
+      "keywords": [
+        "ankle circles",
+        "ankle mobility warmup"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "shoulder_rolls",
+      "name": "Shoulder Rolls",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Shoulder Joint (mobility)",
+      "secondary_muscles": [
+        "Traps"
+      ],
+      "keywords": [
+        "shoulder rolls",
+        "shoulder mobility warmup"
+      ],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "standing_toe_touch",
+      "name": "Standing Toe Touch",
+      "category": "warmup",
+      "equipment": [
+        "bodyweight"
+      ],
+      "type": "warmup",
+      "goal": [
+        "warmup",
+        "mobility"
+      ],
+      "muscle_group": "Warm-Up",
+      "primary_muscle": "Hamstrings & Lower Back (dynamic stretch)",
+      "secondary_muscles": [
+        "Calves"
+      ],
+      "keywords": [
+        "standing toe touch",
+        "hamstring dynamic stretch"
+      ],
+      "difficulty": "beginner"
+    }
+  ]
+}

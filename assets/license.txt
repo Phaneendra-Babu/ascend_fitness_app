@@ -1,0 +1,11 @@
+Model Information:
+* title:	man muscle human body
+* source:	https://sketchfab.com/3d-models/man-muscle-human-body-b57a6b16ad0d4e81adebda16a5a274df
+* author:	mina (https://sketchfab.com/aile6293)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "man muscle human body" (https://sketchfab.com/3d-models/man-muscle-human-body-b57a6b16ad0d4e81adebda16a5a274df) by mina (https://sketchfab.com/aile6293) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
