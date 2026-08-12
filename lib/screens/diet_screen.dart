@@ -19,12 +19,6 @@ class _DietScreenState extends State<DietScreen> {
   int _selectedDay = DateTime.now().weekday - 1;
   String? _swipedMealKey;
 
-  // Daily targets
-  static const int _targetCalories = 2000;
-  static const int _targetProtein = 150;
-  static const int _targetCarbs = 250;
-  static const int _targetFat = 70;
-
   DayDietPlan get _currentPlan => Provider.of<DietPlanState>(context, listen: false).getPlanForDay(_selectedDay + 1);
 
   @override
@@ -63,8 +57,6 @@ class _DietScreenState extends State<DietScreen> {
               _buildAddRecipeButton(),
               const SizedBox(height: 16),
               _buildCreateRecipeCard(),
-              const SizedBox(height: 16),
-              _buildRepeatWeekButton(),
               const SizedBox(height: 24),
             ],
           ),
@@ -132,8 +124,9 @@ class _DietScreenState extends State<DietScreen> {
   // ── Today's Intake Summary ──────────────────────────────────
 
   Widget _buildIntakeSummary() {
+    // Watched so the card rebuilds when meals OR goals change.
+    final planState = Provider.of<DietPlanState>(context);
     final plan = _currentPlan;
-    final remaining = _targetCalories - plan.totalCalories;
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -150,46 +143,194 @@ class _DietScreenState extends State<DietScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Today's Intake", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: context.textPrimary)),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Today's Intake", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: context.textPrimary)),
+                  Text('Daily Nutrition Goals', style: TextStyle(fontSize: 11, color: context.textMuted)),
+                ],
+              ),
               GestureDetector(
-                onTap: () {},
-                child: Text('Edit Goal', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: context.accent)),
+                onTap: _editNutritionGoals,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: context.accent.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text('Edit Goal', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: context.accent)),
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
           Row(
             children: [
-              _intakeTile('Calories', '${plan.totalCalories}', '/ $_targetCalories kcal', const Color(0xFFF97316)),
-              const SizedBox(width: 12),
-              _intakeTile('Protein', '${plan.totalProtein}', '/ $_targetProtein g', const Color(0xFFEF4444)),
-              const SizedBox(width: 12),
-              _intakeTile('Carbs', '${plan.totalCarbs}', '/ $_targetCarbs g', const Color(0xFFF59E0B)),
-              const SizedBox(width: 12),
-              _intakeTile('Fat', '${plan.totalFat}', '/ $_targetFat g', const Color(0xFF3B82F6)),
+              // Calories progress ring
+              SizedBox(
+                height: 92,
+                width: 92,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox(
+                      width: 92,
+                      height: 92,
+                      child: CircularProgressIndicator(
+                        value: planState.calories > 0
+                            ? (plan.totalCalories / planState.calories).clamp(0.0, 1.0)
+                            : 0.0,
+                        strokeWidth: 8,
+                        strokeCap: StrokeCap.round,
+                        backgroundColor: context.divider,
+                        color: const Color(0xFFF97316),
+                      ),
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '${plan.totalCalories}',
+                          style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900, color: context.textPrimary),
+                        ),
+                        Text(
+                          '/ ${planState.calories} kcal',
+                          style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: context.textSecondary),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 20),
+              // Macro goal bars
+              Expanded(
+                child: Column(
+                  children: [
+                    _buildGoalBar('Protein', plan.totalProtein, planState.protein, 'g', const Color(0xFFEF4444)),
+                    const SizedBox(height: 9),
+                    _buildGoalBar('Carbs', plan.totalCarbs, planState.carbs, 'g', const Color(0xFFF59E0B)),
+                    const SizedBox(height: 9),
+                    _buildGoalBar('Fat', plan.totalFat, planState.fat, 'g', const Color(0xFF3B82F6)),
+                    const SizedBox(height: 9),
+                    _buildGoalBar('Fiber', plan.totalFiber, planState.fiber, 'g', const Color(0xFF10B981)),
+                  ],
+                ),
+              ),
             ],
           ),
-          if (remaining > 0) ...[
-            const SizedBox(height: 10),
-            Text(
-              'Remaining: $remaining kcal',
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF10B981)),
-            ),
-          ],
         ],
       ),
     );
   }
 
-  Widget _intakeTile(String label, String value, String target, Color color) {
-    return Expanded(
-      child: Column(
-        children: [
-          Text(value, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color)),
-          const SizedBox(height: 2),
-          Text(label, style: TextStyle(fontSize: 10, color: context.textMuted)),
-          Text(target, style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.6))),
+  Widget _buildGoalBar(String name, int value, int target, String unit, Color color) {
+    final fraction = target > 0 ? (value / target).clamp(0.0, 1.0) : 0.0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(name, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: context.textSecondary)),
+            Text('$value/$target$unit', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: context.textSecondary)),
+          ],
+        ),
+        const SizedBox(height: 4),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            height: 6,
+            color: context.divider,
+            child: FractionallySizedBox(
+              alignment: Alignment.centerLeft,
+              widthFactor: fraction,
+              child: Container(color: color),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // ── Edit Nutrition Goals ────────────────────────────────────
+
+  Future<void> _editNutritionGoals() async {
+    final planState = Provider.of<DietPlanState>(context, listen: false);
+    final calCtrl = TextEditingController(text: planState.calories.toString());
+    final proteinCtrl = TextEditingController(text: planState.protein.toString());
+    final carbsCtrl = TextEditingController(text: planState.carbs.toString());
+    final fatCtrl = TextEditingController(text: planState.fat.toString());
+    final fiberCtrl = TextEditingController(text: planState.fiber.toString());
+
+    await showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        backgroundColor: context.cardColor,
+        title: Text('Edit Nutrition Goals', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: context.textPrimary)),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _goalField('Calories (kcal)', calCtrl),
+              const SizedBox(height: 12),
+              _goalField('Protein (g)', proteinCtrl),
+              const SizedBox(height: 12),
+              _goalField('Carbs (g)', carbsCtrl),
+              const SizedBox(height: 12),
+              _goalField('Fat (g)', fatCtrl),
+              const SizedBox(height: 12),
+              _goalField('Fiber (g)', fiberCtrl),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text('Cancel', style: TextStyle(color: context.textMuted)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: context.accent,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            ),
+            onPressed: () {
+              planState.updateGoals(
+                calories: int.tryParse(calCtrl.text) ?? planState.calories,
+                protein: int.tryParse(proteinCtrl.text) ?? planState.protein,
+                carbs: int.tryParse(carbsCtrl.text) ?? planState.carbs,
+                fat: int.tryParse(fatCtrl.text) ?? planState.fat,
+                fiber: int.tryParse(fiberCtrl.text) ?? planState.fiber,
+              );
+              Navigator.pop(ctx);
+            },
+            child: const Text('Save'),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _goalField(String label, TextEditingController controller) {
+    return TextField(
+      controller: controller,
+      keyboardType: TextInputType.number,
+      style: TextStyle(color: context.textPrimary),
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(color: context.textMuted),
+        filled: true,
+        fillColor: context.background,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: context.border),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: context.border),
+        ),
       ),
     );
   }
@@ -298,6 +439,7 @@ class _DietScreenState extends State<DietScreen> {
                                       _nutritionChip('${item.protein}g Protein', const Color(0xFFEF4444)),
                                       _nutritionChip('${item.carbs}g Carbs', const Color(0xFFF59E0B)),
                                       _nutritionChip('${item.fat}g Fat', const Color(0xFF3B82F6)),
+                                      _nutritionChip('${item.fiber}g Fiber', const Color(0xFF10B981)),
                                     ],
                                   ),
                                 ],
@@ -445,6 +587,7 @@ class _DietScreenState extends State<DietScreen> {
           protein: picked.protein,
           carbs: picked.carbs,
           fat: picked.fat,
+          fiber: picked.fiber,
         ),
       );
     });
@@ -512,34 +655,6 @@ class _DietScreenState extends State<DietScreen> {
             ),
             Icon(Icons.arrow_forward_ios, color: context.accent),
           ],
-        ),
-      ),
-    );
-  }
-
-  // ── Repeat Week Button ──────────────────────────────────────
-
-  Widget _buildRepeatWeekButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: OutlinedButton.icon(
-        onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('📋 This week\'s diet plan copied to next week!'),
-              backgroundColor: const Color(0xFF10B981),
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            ),
-          );
-        },
-        icon: const Icon(Icons.content_copy, size: 18),
-        label: const Text('Use Same Diet Plan Next Week'),
-        style: OutlinedButton.styleFrom(
-          foregroundColor: context.accent,
-          side: BorderSide(color: context.accent, width: 1.5),
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         ),
       ),
     );

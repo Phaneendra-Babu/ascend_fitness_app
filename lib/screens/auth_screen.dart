@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/user_profile.dart';
 import '../theme/app_colors.dart';
-import 'onboarding_screen.dart';
+import 'forgot_password_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -81,12 +81,19 @@ class _AuthScreenState extends State<AuthScreen> {
             name: _nameController.text.trim().isEmpty ? 'Hunter' : _nameController.text.trim(),
           );
           await _createUserProfile(userProfile);
+
+          // Send a verification email — the AuthGate routes new users to the
+          // verify-email screen until they confirm their address.
+          try {
+            await credential.user!.sendEmailVerification();
+          } on FirebaseAuthException {
+            // Non-fatal: the account is created and the user can resend the
+            // verification email from the verify-email screen.
+          }
         }
 
-        // Navigate to onboarding for new users
-        if (mounted) {
-          Navigator.of(context).pushNamedAndRemoveUntil('/onboarding', (route) => false);
-        }
+        // Do not navigate here — AuthGate (listening to the auth stream)
+        // rebuilds and shows the verify-email screen for new accounts.
         return;
       }
     } on FirebaseAuthException catch (e) {
@@ -288,7 +295,34 @@ class _AuthScreenState extends State<AuthScreen> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 8),
+
+                        // Forgot password link (login mode only)
+                        if (_isLogin) ...[
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => ForgotPasswordScreen(
+                                      initialEmail: _emailController.text.trim(),
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Forgot Password?',
+                                style: TextStyle(
+                                  color: context.accent,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                        ],
+                        const SizedBox(height: 16),
 
                         // Error message
                         if (_errorMessage != null) ...[
@@ -398,7 +432,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            'Demo mode: Creates a user profile in Firestore on sign-up.',
+                            'New accounts must verify their email before onboarding.',
                             style: TextStyle(
                               fontSize: 12,
                               color: context.accent,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../services/local_storage.dart';
+import '../services/notification_service.dart';
 
 /// A single exercise within a workout day.
 class WorkoutExercise {
@@ -118,6 +119,40 @@ class Habit {
     final dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     return scheduleDays.map((d) => dayNames[d - 1]).join(', ');
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'icon': icon.codePoint,
+        'color': color.toARGB32(),
+        'scheduleDays': scheduleDays,
+      };
+
+  factory Habit.fromJson(Map<String, dynamic> json) => Habit(
+        id: json['id'] as String? ?? '',
+        name: json['name'] as String? ?? '',
+        icon: _iconFromCode(json['icon'] as int?),
+        color: Color(json['color'] as int? ?? 0xFF38BDF8),
+        scheduleDays: (json['scheduleDays'] as List<dynamic>? ?? const [])
+            .cast<int>(),
+      );
+
+  /// Reconstruct a habit icon from a persisted code point. `IconData` marks
+  /// its `codePoint` as `@mustBeConst` (for release icon tree-shaking), so a
+  /// runtime reconstruction goes through a lookup of the known const icons
+  /// rather than calling the constructor with a variable.
+  static IconData _iconFromCode(int? codePoint) {
+    if (codePoint == null) return Icons.check_circle_outline;
+    return _knownIcons[codePoint] ?? Icons.check_circle_outline;
+  }
+
+  static final Map<int, IconData> _knownIcons = {
+    Icons.water_drop.codePoint: Icons.water_drop,
+    Icons.directions_run.codePoint: Icons.directions_run,
+    Icons.self_improvement.codePoint: Icons.self_improvement,
+    Icons.bedtime.codePoint: Icons.bedtime,
+    Icons.check_circle_outline.codePoint: Icons.check_circle_outline,
+  };
 }
 
 /// The full week's workout plan.
@@ -196,6 +231,30 @@ class WeeklyPlan {
     );
   }
 
+  /// Copy this plan with every exercise reset to unchecked. Used when rolling
+  /// a plan into a new week so completion state never carries over.
+  WeeklyPlan copyWithCompletionReset() {
+    return WeeklyPlan(
+      days: days.map((k, v) => MapEntry(
+            k,
+            WorkoutDay(
+              label: v.label,
+              targetMuscles: v.targetMuscles,
+              exercises: v.exercises
+                  .map((e) => WorkoutExercise(
+                        exerciseId: e.exerciseId,
+                        name: e.name,
+                        sets: e.sets,
+                        reps: e.reps,
+                        muscleGroup: e.muscleGroup,
+                        completed: false,
+                      ))
+                  .toList(),
+            ),
+          )),
+    );
+  }
+
   Map<String, dynamic> toJson() => {
         'days': days.map((k, v) => MapEntry(k.toString(), v.toJson())),
       };
@@ -221,8 +280,15 @@ class WeeklyPlan {
 }
 
 /// Shared state for the workout plan, accessible across screens via Provider.
+///
+/// The plan is stored per week under `workoutPlan_<weekId>` (Monday-of-week
+/// date). When a new week starts with no saved plan, the most recent prior
+/// week's plan is rolled forward with every exercise reset to unchecked — so
+/// the next week automatically repeats this week's workout without carrying
+/// stale checkmarks.
 class WorkoutPlanState extends ChangeNotifier {
-  static const _storageKey = 'workoutPlan';
+  static const _storageKeyPrefix = 'workoutPlan_';
+  static const _legacyStorageKey = 'workoutPlan';
 
   WeeklyPlan _plan;
   WeeklyPlan? _nextWeekPlan;
@@ -231,24 +297,84 @@ class WorkoutPlanState extends ChangeNotifier {
 
   WeeklyPlan get plan => _plan;
 
-  /// Load saved plan from local storage.
+  /// Week-scoped storage key for the current week, e.g. `workoutPlan_2026-8-3`.
+  static String get _currentStorageKey => '$_storageKeyPrefix$_weekId';
+
+  /// Monday of the current week (same weekId scheme the habits use).
+  static String get _weekId {
+    final now = DateTime.now();
+    final weekStart = now.subtract(Duration(days: now.weekday - 1));
+    return '${weekStart.year}-${weekStart.month}-${weekStart.day}';
+  }
+
+  /// Load this week's plan. If it doesn't exist yet, roll the most recent
+  /// prior week's plan forward with every checkbox reset to unchecked.
   void load() {
-    final raw = LocalStorage.loadJsonString(_storageKey);
+    final raw = LocalStorage.loadJsonString(_currentStorageKey);
     if (raw != null) {
-      try {
-        final json = Map<String, dynamic>.from(
-            (jsonDecode(raw) as Map).cast<String, dynamic>());
-        _plan = WeeklyPlan.fromJson(json);
-        notifyListeners();
-      } catch (_) {
-        // Keep default plan on parse error
+      _plan = _parsePlan(raw);
+    } else {
+      _plan = _loadMostRecentPriorWeek()?.copyWithCompletionReset() ??
+          (_loadLegacyPlan()?.copyWithCompletionReset() ?? _plan);
+      // Persist the rolled-over plan under this week's key so edits and next
+      // week's rollover both read from a clean copy.
+      _save();
+    }
+    notifyListeners();
+    // Schedule (or clear) today's workout reminder based on whether any
+    // exercises are still unchecked.
+    NotificationService.instance.syncWorkoutReminder(
+        incomplete: todayWorkoutIncomplete);
+  }
+
+  /// Save current plan to this week's storage key.
+  Future<void> _save() async {
+    await LocalStorage.saveJson(_currentStorageKey, _plan.toJson());
+  }
+
+  /// Most recent prior week's plan (before this week), or null if none.
+  WeeklyPlan? _loadMostRecentPriorWeek() {
+    final currentWeekDate = _parseWeekDate(_weekId);
+    String? bestKey;
+    DateTime? bestDate;
+    for (final key in LocalStorage.localKeysWithPrefix(_storageKeyPrefix)) {
+      final date = _parseWeekDate(key.substring(_storageKeyPrefix.length));
+      if (date == null) continue;
+      if (currentWeekDate != null && !date.isBefore(currentWeekDate)) continue;
+      if (bestDate == null || date.isAfter(bestDate)) {
+        bestDate = date;
+        bestKey = key;
       }
+    }
+    if (bestKey == null) return null;
+    final raw = LocalStorage.loadJsonString(bestKey);
+    return raw == null ? null : _parsePlan(raw);
+  }
+
+  /// Plan saved under the pre-week-scoping `workoutPlan` key.
+  WeeklyPlan? _loadLegacyPlan() {
+    final raw = LocalStorage.loadJsonString(_legacyStorageKey);
+    return raw == null ? null : _parsePlan(raw);
+  }
+
+  static WeeklyPlan _parsePlan(String raw) {
+    try {
+      final json = Map<String, dynamic>.from(
+          (jsonDecode(raw) as Map).cast<String, dynamic>());
+      return WeeklyPlan.fromJson(json);
+    } catch (_) {
+      return WeeklyPlan.defaultPlan();
     }
   }
 
-  /// Save current plan to local storage.
-  Future<void> _save() async {
-    await LocalStorage.saveJson(_storageKey, _plan.toJson());
+  static DateTime? _parseWeekDate(String weekId) {
+    final parts = weekId.split('-');
+    if (parts.length != 3) return null;
+    final y = int.tryParse(parts[0]);
+    final m = int.tryParse(parts[1]);
+    final d = int.tryParse(parts[2]);
+    if (y == null || m == null || d == null) return null;
+    return DateTime(y, m, d);
   }
 
   /// Get the exercises for today's workout (used by Home screen Daily Missions).
@@ -257,6 +383,12 @@ class WorkoutPlanState extends ChangeNotifier {
     final day = _plan.days[today];
     return day?.exercises ?? [];
   }
+
+  /// Whether today's workout still has unchecked exercises. False on rest
+  /// days / when today's plan is empty, so no workout reminder is scheduled.
+  bool get todayWorkoutIncomplete =>
+      todayExercises.isNotEmpty &&
+      !(_plan.days[DateTime.now().weekday]?.allComplete ?? false);
 
   void updatePlan(WeeklyPlan plan) {
     _plan = plan;

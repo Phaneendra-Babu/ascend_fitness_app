@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:ascend_app/models/xp_system.dart';
 import 'package:ascend_app/models/workout_plan.dart';
 import 'package:ascend_app/services/local_storage.dart';
+import '../controllers/progress_controller.dart';
+import '../services/notification_service.dart';
 import 'profile_screen.dart';
 import '../theme/app_colors.dart';
 import '../widgets/flame_effect.dart';
@@ -21,37 +23,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   // ── Local state ──────────────────────────────────────────────
-  // Mission completion status (toggled on tap)
+  // Fallback mission completion status (toggled on tap). Only used when there
+  // is no workout plan for today.
   List<bool> _missionsDone = [true, false, true, false, false];
-
-  // Streak history with detailed status (managed internally, not user-editable)
-  List<StreakDay> _streakHistory = [];
 
   // Notification panel open
   bool _showNotifications = false;
-
-  // XP and Level state (using XP system)
-  int _totalXP = 3420;
-  int get _level => XPSystem.levelForXP(_totalXP);
-  int get _xpTarget => XPSystem.xpForLevel(_level + 1);
-  String get _hunterRank => XPSystem.hunterRank(_level);
-  int get _rankColor => XPSystem.rankColor(_level);
-  bool _showLevelUp = false;
-  int _oldLevel = 1;
-
-  // User info from Firestore
-  String _userName = 'Hunter';
-  String _userAvatarUrl = '';
-
-  void _awardXP(int xp) {
-    final oldLevel = _level;
-    _totalXP += xp;
-    final newLevel = XPSystem.levelForXP(_totalXP);
-    if (newLevel > oldLevel) {
-      _showLevelUpAnimation(newLevel);
-    }
-    _saveLocalState();
-  }
 
   void _showLevelUpAnimation(int newLevel) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -71,39 +48,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  void _updateXPState() {
-    setState(() {
-      // Trigger rebuild with new computed values
-    });
-  }
-
-  void _updateUserInfo() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      final doc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-      if (doc.exists) {
-        final data = doc.data()!;
-        setState(() {
-          _userName = data['name'] as String? ?? 'Hunter';
-          _userAvatarUrl = data['avatarUrl'] as String? ?? '';
-        });
-      }
-    }
-  }
-
   @override
   void initState() {
     super.initState();
     _loadLocalState();
-    _updateUserInfo();
   }
 
   // ── Local persistence ────────────────────────────────────────
 
   void _loadLocalState() {
-    _totalXP = LocalStorage.loadInt('totalXP', 3420);
-
-    // Load missions done
     final missionsRaw = LocalStorage.loadJsonString('missionsDone');
     if (missionsRaw != null) {
       try {
@@ -111,109 +64,30 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         if (list.length == 5) _missionsDone = list;
       } catch (_) {}
     }
-
-    // Load streak history
-    final streakRaw = LocalStorage.loadJsonString('streakHistory');
-    if (streakRaw != null) {
-      try {
-        final list = (jsonDecode(streakRaw) as List<dynamic>)
-            .map((e) => StreakDay.fromJson(e as Map<String, dynamic>))
-            .toList();
-        _streakHistory = list;
-      } catch (_) {}
-    }
-
     if (mounted) setState(() {});
   }
 
-  void _saveLocalState() {
-    LocalStorage.saveInt('totalXP', _totalXP);
+  void _saveMissions() {
     LocalStorage.saveJson('missionsDone', _missionsDone);
-    LocalStorage.saveJson('streakHistory', _streakHistory.map((s) => s.toJson()).toList());
   }
 
-  /// Update streak based on current mission completion and save to Firestore
-  void _updateStreak() {
-    final completed = _missionsCompleted;
-    final total = _missionsDone.length;
-
-    // Only process streak if we haven't already today
-    final today = DateTime.now();
-    final alreadyToday = _streakHistory.any((s) =>
-        s.date.year == today.year &&
-        s.date.month == today.month &&
-        s.date.day == today.day);
-    if (alreadyToday) return;
-
-    _processDailyStreak(
-      missionsCompleted: completed,
-      totalMissions: total,
-    );
-
-    // Save streak to Firestore so profile page can read it
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      FirebaseFirestore.instance.collection('users').doc(user.uid).update({
-        'streakDays': _currentStreak,
-        'updatedAt': FieldValue.serverTimestamp(),
-      });
-    }
-  }
-
-  /// Process daily streak with cooldown logic
-  /// Called when user completes their daily check-in
-  void _processDailyStreak({
-    required int missionsCompleted,
-    required int totalMissions,
-  }) {
-    setState(() {
-      final result = XPSystem.calculateStreakDay(
-        missionsCompleted: missionsCompleted,
-        totalMissions: totalMissions,
-        streakHistory: _streakHistory,
-        cooldownsUsedThisWeek: 0,
-        currentStreak: _currentStreak,
+  /// Feed today's combined exercise + habit progress into the shared
+  /// ProgressController so the streak / fire mark updates live.
+  void _recordDayProgress(ProgressController progress) {
+    final planState = Provider.of<WorkoutPlanState>(context, listen: false);
+    final exercises = planState.todayExercises;
+    if (exercises.isEmpty) {
+      // No plan for today → the 5 fallback missions stand in for exercises.
+      progress.recordDayProgress(
+        exercisesCompleted: _missionsCompleted,
+        exercisesTotal: _missionsDone.length,
       );
-
-      _streakHistory.add(StreakDay(
-        date: DateTime.now(),
-        status: result.status,
-        missionsCompleted: missionsCompleted,
-        totalMissions: totalMissions,
-        cooldownsUsed: result.cooldownUsed ? 1 : 0,
-      ));
-
-      if (result.xpAwarded > 0) {
-        _awardXP(result.xpAwarded);
-      }
-    });
-    _saveLocalState();
-  }
-
-  /// Get current streak count
-  int get _currentStreak {
-    if (_streakHistory.isEmpty) return 0;
-    int count = 0;
-    for (int i = _streakHistory.length - 1; i >= 0; i--) {
-      if (_streakHistory[i].status == StreakDayStatus.active) {
-        count++;
-      } else if (_streakHistory[i].status == StreakDayStatus.cooldown) {
-        // Cooldown preserves streak, continue counting
-        count++;
-      } else {
-        break;
-      }
+    } else {
+      progress.recordDayProgress(
+        exercisesCompleted: exercises.where((e) => e.completed).length,
+        exercisesTotal: exercises.length,
+      );
     }
-    return count;
-  }
-
-  /// Get cooldowns used in current week
-  int get _cooldownsUsedThisWeek {
-    final now = DateTime.now();
-    final weekStart = now.subtract(Duration(days: now.weekday - 1));
-    return _streakHistory
-        .where((d) => d.date.isAfter(weekStart) && d.status == StreakDayStatus.cooldown)
-        .length;
   }
 
   // Computed helpers
@@ -360,19 +234,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               _buildStreakCard(),
               const SizedBox(height: 20),
 
-              // 4. Daily Nutrition progress card
-              _buildNutritionCard(),
-              const SizedBox(height: 20),
-
-              // 5. Health Sync Data Card
+              // 4. Health Sync Data Card
               _buildHealthStatsCard(),
               const SizedBox(height: 20),
 
-              // 6. Daily Quests / Missions List
+              // 5. Daily Quests / Missions List
               _buildDailyMissionsSection(),
               const SizedBox(height: 20),
 
-              // 7. Quick Actions Card
+              // 6. Quick Actions Card
               _buildQuickAccessSection(context),
               const SizedBox(height: 12),
             ],
@@ -449,6 +319,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   // ── Header ─────────────────────────────────────────────────
   Widget _buildHeaderSection() {
+    final p = context.watch<ProgressController>();
+    final level = XPSystem.levelForXP(p.totalXP);
+    final hunterRank = XPSystem.hunterRank(level);
+    final rankColor = XPSystem.rankColor(level);
     return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
       stream: FirebaseFirestore.instance
           .collection('users')
@@ -503,11 +377,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                 ),
                 Text(
-                  _hunterRank,
+                  hunterRank,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w900,
-                    color: Color(_rankColor),
+                    color: Color(rankColor),
                   ),
                 ),
               ],
@@ -520,8 +394,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   // ── XP Card ────────────────────────────────────────────────
   Widget _buildXPCard() {
-    final currentLevelXP = XPSystem.xpForLevel(_level);
-    final progress = _level == 1 ? 0.0 : (_totalXP - currentLevelXP) / (_xpTarget - currentLevelXP);
+    final p = context.watch<ProgressController>();
+    final level = XPSystem.levelForXP(p.totalXP);
+    final xpTarget = XPSystem.xpForLevel(level + 1);
+    final rankColor = XPSystem.rankColor(level);
+    final currentLevelXP = XPSystem.xpForLevel(level);
+    final xpInLevel = xpTarget - currentLevelXP;
+    final progress = xpInLevel > 0
+        ? (p.totalXP - currentLevelXP) / xpInLevel
+        : 1.0;
 
     return Container(
       decoration: BoxDecoration(
@@ -547,19 +428,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Color(_rankColor).withOpacity(0.1),
+                      color: Color(rankColor).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.shield, color: Color(_rankColor), size: 16),
+                        Icon(Icons.shield, color: Color(rankColor), size: 16),
                         const SizedBox(width: 4),
                         Text(
-                          'LVL $_level',
+                          'LVL $level',
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
-                            color: Color(_rankColor),
+                            color: Color(rankColor),
                           ),
                         ),
                       ],
@@ -576,7 +457,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ],
               ),
               Text(
-                '$_totalXP / $_xpTarget XP',
+                '${p.totalXP} / $xpTarget XP',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 13,
@@ -618,11 +499,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Progress to Level ${_level + 1}',
+                'Progress to Level ${level + 1}',
                 style: TextStyle(fontSize: 11, color: context.textMuted),
               ),
               Text(
-                '${(_xpTarget - _totalXP).toStringAsFixed(0)} XP remaining',
+                '${(xpTarget - p.totalXP).toStringAsFixed(0)} XP remaining',
                 style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: context.accent),
               ),
             ],
@@ -634,9 +515,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   // ── Streak Card (tappable days) ────────────────────────────
   Widget _buildStreakCard() {
-    final List<String> days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-    final streakCount = _currentStreak;
-    final cooldownsThisWeek = _cooldownsUsedThisWeek;
+    final progress = context.watch<ProgressController>();
+    final streakCount = progress.currentStreak;
+    final cooldownsThisWeek = progress.cooldownsUsedThisWeek;
 
     // Calculate streak XP using XP system
     int streakXP = XPSystem.DAILY_STREAK_BASE;
@@ -694,9 +575,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       color: context.accent,
                     ),
                   ),
-                  if (_cooldownsUsedThisWeek > 0)
+                  if (cooldownsThisWeek > 0)
                     Text(
-                      '$_cooldownsUsedThisWeek/${XPSystem.COOLDOWNS_PER_WEEK} cooldowns this week',
+                      '$cooldownsThisWeek/${XPSystem.COOLDOWNS_PER_WEEK} cooldowns this week',
                       style: TextStyle(fontSize: 10, color: context.textMuted),
                     ),
                 ],
@@ -709,10 +590,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             children: List.generate(7, (index) {
               // Get streak history for this day of week (last 7 days)
               StreakDayStatus status = StreakDayStatus.incomplete;
-              if (_streakHistory.length > index) {
-                final historyIndex = _streakHistory.length - 7 + index;
-                if (historyIndex >= 0 && historyIndex < _streakHistory.length) {
-                  status = _streakHistory[historyIndex].status;
+              final history = progress.streakHistory;
+              if (history.length > index) {
+                final historyIndex = history.length - 7 + index;
+                if (historyIndex >= 0 && historyIndex < history.length) {
+                  status = history[historyIndex].status;
                 }
               }
 
@@ -762,6 +644,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   void _showStreakDetail(BuildContext context) {
+    final progress = Provider.of<ProgressController>(context, listen: false);
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -780,7 +663,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 const Icon(Icons.local_fire_department, color: Colors.orange, size: 24),
                 const SizedBox(width: 8),
                 Text(
-                  '$_currentStreak Days Streak',
+                  '${progress.currentStreak} Days Streak',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -791,12 +674,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
             const SizedBox(height: 12),
             Text(
-              'Cooldowns used this week: $_cooldownsUsedThisWeek/${XPSystem.COOLDOWNS_PER_WEEK}',
+              'Cooldowns used this week: ${progress.cooldownsUsedThisWeek}/${XPSystem.COOLDOWNS_PER_WEEK}',
               style: TextStyle(fontSize: 14, color: context.textSecondary),
             ),
             const SizedBox(height: 8),
             Text(
-              'Complete ${XPSystem.STREAK_ACTIVATION_THRESHOLD * 100}% of daily missions to maintain your streak. You have ${XPSystem.COOLDOWNS_PER_WEEK - _cooldownsUsedThisWeek} cooldowns left this week.',
+              'Complete ${XPSystem.STREAK_ACTIVATION_THRESHOLD * 100}% of daily missions to maintain your streak. You have ${XPSystem.COOLDOWNS_PER_WEEK - progress.cooldownsUsedThisWeek} cooldowns left this week.',
               style: TextStyle(fontSize: 13, color: context.textSecondary),
             ),
             const SizedBox(height: 20),
@@ -844,9 +727,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget _getStreakDayIcon(StreakDayStatus status) {
     switch (status) {
       case StreakDayStatus.active:
-        return Icon(Icons.check, color: context.accent, size: 16);
+        // 🔥 Fire mark for days that hit the completion threshold.
+        return const Icon(Icons.local_fire_department, color: Colors.orange, size: 16);
       case StreakDayStatus.cooldown:
-        return const Icon(Icons.pause, color: Color(0xFFF59E0B), size: 14);
+        // ❄️ Distinct snowflake symbol for cooldown days.
+        return const Icon(Icons.ac_unit, color: Color(0xFFF59E0B), size: 14);
       case StreakDayStatus.broken:
         return const Icon(Icons.close, color: Color(0xFFEF4444), size: 14);
       case StreakDayStatus.incomplete:
@@ -854,188 +739,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     }
   }
 
-
-  Widget _buildNutritionCard() {
-    return Container(
-      decoration: BoxDecoration(
-        color: context.cardColor,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: context.shadow,
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          )
-        ],
-      ),
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Daily Nutrition Goals',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: context.textPrimary,
-                    ),
-                  ),
-                  Text(
-                    'Today\'s target intake',
-                    style: TextStyle(fontSize: 11, color: context.textMuted),
-                  ),
-                ],
-              ),
-              IconButton(
-                icon: Icon(Icons.edit_outlined, size: 20, color: context.textSecondary),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Nutrition editing coming with Firebase!'),
-                      behavior: SnackBarBehavior.floating,
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  SizedBox(
-                    height: 90,
-                    width: 90,
-                    child: CircularProgressIndicator(
-                      value: 1450 / 2000,
-                      strokeWidth: 8,
-                      backgroundColor: context.divider,
-                      color: context.accent,
-                      strokeCap: StrokeCap.round,
-                    ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        '1,450',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w900,
-                          color: context.textPrimary,
-                        ),
-                      ),
-                      Text(
-                        '/ 2000 kcal',
-                        style: TextStyle(
-                          fontSize: 9,
-                          color: context.textSecondary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(width: 24),
-              Expanded(
-                child: Column(
-                  children: [
-                    _buildMacroRow('Protein', 94, 150, 'g', Colors.redAccent),
-                    const SizedBox(height: 10),
-                    _buildMacroRow('Carbs', 162, 250, 'g', Colors.orangeAccent),
-                    const SizedBox(height: 10),
-                    _buildMacroRow('Fats', 48, 70, 'g', Colors.green),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Divider(height: 30, color: context.divider),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildFooterMetric('Water Intake', '1.8L', '/ 3.0L', Icons.water_drop, Colors.blue),
-              _buildFooterMetric('Fiber Intake', '22g', '/ 30g', Icons.grass, Colors.lightGreen),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMacroRow(String name, double value, double target, String unit, Color barColor) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              name,
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: context.textSecondary),
-            ),
-            Text(
-              '${value.toInt()}/${target.toInt()}$unit',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: context.textSecondary),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            height: 6,
-            color: context.divider,
-            child: FractionallySizedBox(
-              alignment: Alignment.centerLeft,
-              widthFactor: value / target,
-              child: Container(color: barColor),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildFooterMetric(String title, String current, String target, IconData icon, Color iconColor) {
-    return Row(
-      children: [
-        Icon(icon, color: iconColor, size: 20),
-        const SizedBox(width: 6),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: TextStyle(fontSize: 11, color: context.textMuted),
-            ),
-            Row(
-              children: [
-                Text(
-                  current,
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: context.textPrimary),
-                ),
-                Text(
-                  target,
-                  style: TextStyle(fontSize: 11, color: context.textSecondary),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
-  }
 
   // ── Health Stats Card ──────────────────────────────────────
   Widget _buildHealthStatsCard() {
@@ -1189,20 +892,25 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 itemBuilder: (context, index) {
                   final ex = exercises[index];
                   return GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      final progress = Provider.of<ProgressController>(context, listen: false);
+                      final planState = Provider.of<WorkoutPlanState>(context, listen: false);
+                      final wasCompleted = ex.completed;
                       setState(() {
                         ex.completed = !ex.completed;
-                        if (ex.completed) {
-                          _totalXP += XPSystem.TODO_MEDIUM;
-                        } else {
-                          _totalXP -= XPSystem.TODO_MEDIUM;
-                        }
                       });
-                      _saveLocalState();
+                      final leveledUp = await progress.awardXP(
+                          wasCompleted ? -XPSystem.TODO_MEDIUM : XPSystem.TODO_MEDIUM);
                       // Persist workout plan change
-                      final planState = Provider.of<WorkoutPlanState>(context, listen: false);
                       planState.updatePlan(planState.plan);
-                      _updateStreak();
+                      // Keep today's workout reminder in sync with completion.
+                      NotificationService.instance.syncWorkoutReminder(
+                          incomplete: planState.todayWorkoutIncomplete);
+                      if (!mounted) return;
+                      _recordDayProgress(progress);
+                      if (leveledUp) {
+                        _showLevelUpAnimation(XPSystem.levelForXP(progress.totalXP));
+                      }
                     },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
@@ -1341,18 +1049,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             itemBuilder: (context, index) {
               final isDone = _missionsDone[index];
               return GestureDetector(
-                onTap: () {
+                onTap: () async {
+                  final progress = Provider.of<ProgressController>(context, listen: false);
+                  final wasDone = _missionsDone[index];
                   setState(() {
                     _missionsDone[index] = !_missionsDone[index];
-                    // Award / remove XP
-                    if (_missionsDone[index]) {
-                      _totalXP += missionXP[index];
-                    } else {
-                      _totalXP -= missionXP[index];
-                    }
                   });
-                  _saveLocalState();
-                  _updateStreak();
+                  final leveledUp = await progress.awardXP(
+                      wasDone ? -missionXP[index] : missionXP[index]);
+                  _saveMissions();
+                  if (!mounted) return;
+                  _recordDayProgress(progress);
+                  if (leveledUp) {
+                    _showLevelUpAnimation(XPSystem.levelForXP(progress.totalXP));
+                  }
                 },
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),

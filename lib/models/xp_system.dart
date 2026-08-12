@@ -13,6 +13,9 @@ class XPSystem {
   static const int TODO_MEDIUM = 35;
   static const int TODO_HARD = 75;
 
+  // Habits (awarded/revoked on each daily toggle)
+  static const int HABIT_XP = 80;
+
   // Daily Missions (5 per day)
   static const int DAILY_MISSION_SINGLE = 40;
   static const int DAILY_MISSIONS_ALL_BONUS = 150;

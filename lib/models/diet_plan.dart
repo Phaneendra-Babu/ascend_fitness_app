@@ -60,6 +60,7 @@ class MealItem {
   final int protein;
   final int carbs;
   final int fat;
+  final int fiber;
 
   const MealItem({
     required this.recipeId,
@@ -68,6 +69,7 @@ class MealItem {
     required this.protein,
     required this.carbs,
     required this.fat,
+    this.fiber = 0,
   });
 
   Map<String, dynamic> toJson() => {
@@ -77,6 +79,7 @@ class MealItem {
         'protein': protein,
         'carbs': carbs,
         'fat': fat,
+        'fiber': fiber,
       };
 
   factory MealItem.fromJson(Map<String, dynamic> json) => MealItem(
@@ -86,6 +89,7 @@ class MealItem {
         protein: json['protein'] as int? ?? 0,
         carbs: json['carbs'] as int? ?? 0,
         fat: json['fat'] as int? ?? 0,
+        fiber: json['fiber'] as int? ?? 0,
       );
 }
 
@@ -106,6 +110,8 @@ class DayDietPlan {
       meals.values.expand((m) => m).fold(0, (s, m) => s + m.carbs);
   int get totalFat =>
       meals.values.expand((m) => m).fold(0, (s, m) => s + m.fat);
+  int get totalFiber =>
+      meals.values.expand((m) => m).fold(0, (s, m) => s + m.fiber);
 
   DayDietPlan copy() {
     return DayDietPlan(
@@ -140,12 +146,21 @@ class DayDietPlan {
 /// Shared state for the diet plan across screens.
 class DietPlanState extends ChangeNotifier {
   static const _storageKey = 'dietPlan';
+  static const _goalsKey = 'nutritionGoals';
 
   /// weekday (1=Mon, 7=Sun) → DayDietPlan
   final Map<int, DayDietPlan> _weeklyPlans = {};
 
+  // ── Daily nutrition goals (editable via Today's Intake → Edit Goal) ──
+  int calories = 2000;
+  int protein = 150;
+  int carbs = 250;
+  int fat = 70;
+  int fiber = 30;
+
   /// Load saved diet plan from local storage.
   void load() {
+    _loadGoals();
     final raw = LocalStorage.loadJsonString(_storageKey);
     if (raw != null) {
       try {
@@ -159,6 +174,45 @@ class DietPlanState extends ChangeNotifier {
         // Keep empty plans on parse error
       }
     }
+  }
+
+  void _loadGoals() {
+    final raw = LocalStorage.loadJsonString(_goalsKey);
+    if (raw == null) return;
+    try {
+      final json = jsonDecode(raw) as Map<String, dynamic>;
+      calories = json['calories'] as int? ?? calories;
+      protein = json['protein'] as int? ?? protein;
+      carbs = json['carbs'] as int? ?? carbs;
+      fat = json['fat'] as int? ?? fat;
+      fiber = json['fiber'] as int? ?? fiber;
+      notifyListeners();
+    } catch (_) {
+      // Keep defaults on parse error
+    }
+  }
+
+  /// Persist updated daily nutrition goals.
+  Future<void> updateGoals({
+    required int calories,
+    required int protein,
+    required int carbs,
+    required int fat,
+    required int fiber,
+  }) async {
+    this.calories = calories;
+    this.protein = protein;
+    this.carbs = carbs;
+    this.fat = fat;
+    this.fiber = fiber;
+    await LocalStorage.saveJson(_goalsKey, {
+      'calories': calories,
+      'protein': protein,
+      'carbs': carbs,
+      'fat': fat,
+      'fiber': fiber,
+    });
+    notifyListeners();
   }
 
   /// Save current diet plan to local storage.

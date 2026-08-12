@@ -1,0 +1,33 @@
+{
+  "image_width": 706,
+  "image_height": 1254,
+  "muscles": {
+    "chest": {
+      "label": "Chest"
+    },
+    "shoulders": {
+      "label": "Shoulders"
+    },
+    "biceps": {
+      "label": "Biceps"
+    },
+    "forearms": {
+      "label": "Forearms"
+    },
+    "abs": {
+      "label": "Abs"
+    },
+    "obliques": {
+      "label": "Obliques"
+    },
+    "quads": {
+      "label": "Quads"
+    },
+    "calves": {
+      "label": "Calves"
+    },
+    "traps": {
+      "label": "Traps"
+    }
+  }
+}

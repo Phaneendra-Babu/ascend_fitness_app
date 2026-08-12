@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/exercise.dart';
 import '../models/workout_plan.dart';
+import '../services/notification_service.dart';
 import '../theme/app_colors.dart';
 
 class ExerciseDetailScreen extends StatelessWidget {
@@ -437,6 +438,10 @@ class ExerciseDetailScreen extends StatelessWidget {
               ));
 
               planState.updatePlan(planState.plan);
+              // A newly added exercise makes today's workout incomplete, so
+              // ensure a reminder is scheduled for it.
+              NotificationService.instance.syncWorkoutReminder(
+                  incomplete: planState.todayWorkoutIncomplete);
               Navigator.pop(ctx);
 
               ScaffoldMessenger.of(context).showSnackBar(

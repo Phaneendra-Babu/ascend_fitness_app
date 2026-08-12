@@ -2,16 +2,25 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 
-/// 3D-style rotatable body map with detailed muscle highlighting.
-/// Swipe left/right to rotate between front, side, and back views.
-/// Active muscles glow with the mode's accent color.
+/// Interactive body map built from stacked transparent PNG overlays.
+///
+/// The base body outline (`front_body_base.png`) is always drawn. Each muscle
+/// group is a separate transparent PNG layered on top of the same canvas, so
+/// any group present in [muscleCounts] is recolored with [accentColor] using
+/// [BlendMode.srcATop] (tint where the overlay has pixels, keep transparency
+/// elsewhere).
+///
+/// Opacity scales with the exercise count per muscle group: more exercises
+/// = more intense highlight.
 class BodyMapWidget extends StatefulWidget {
-  final Set<String> activeMuscles;
+  /// Muscle group name → number of exercises targeting it.
+  /// Keys use app-level names: Chest, Shoulders, Arms, Core, Back, Legs, etc.
+  final Map<String, int> muscleCounts;
   final Color accentColor;
 
   const BodyMapWidget({
     super.key,
-    required this.activeMuscles,
+    required this.muscleCounts,
     this.accentColor = const Color(0xFF2563EB),
   });
 
@@ -21,6 +30,48 @@ class BodyMapWidget extends StatefulWidget {
 
 class _BodyMapWidgetState extends State<BodyMapWidget>
     with SingleTickerProviderStateMixin {
+  static const _frontAssetDir = 'assets/body_map/muscles_front';
+
+  /// App-level muscle group → front-view overlay PNGs that light up for it.
+  static const _frontOverlays = <String, List<String>>{
+    'chest': ['$_frontAssetDir/chest.png'],
+    'shoulders': [
+      '$_frontAssetDir/shoulders.png',
+      '$_frontAssetDir/traps.png',
+    ],
+    'biceps': ['$_frontAssetDir/biceps.png'],
+    'arms': ['$_frontAssetDir/forearms.png'], // forearms labeled as "Arms"
+    'abs': ['$_frontAssetDir/abs.png'],
+    'obliques': ['$_frontAssetDir/obliques.png'],
+    'legs': [
+      '$_frontAssetDir/quads.png',
+      '$_frontAssetDir/calves.png',
+    ],
+  };
+
+  /// Maps app-level muscleGroup strings (from exercises) to overlay keys.
+  /// One exercise muscleGroup can light up multiple overlay keys.
+  static const _muscleGroupToOverlays = <String, List<String>>{
+    'Chest': ['chest'],
+    'Shoulders': ['shoulders'],
+    'Arms': ['biceps', 'arms'], // biceps + forearms
+    'Core': ['abs', 'obliques'], // abs + obliques
+    'Legs': ['legs'],
+    // Back, Cardio → no front overlays yet
+  };
+
+  /// Maps display labels to overlay keys for active-status checking.
+  static const _labelToOverlayKey = {
+    'Chest': 'chest',
+    'Shoulders': 'shoulders',
+    'Bicep': 'biceps',
+    'Abs': 'abs',
+    'Obliques': 'obliques',
+    'Arms': 'arms',
+    'Legs': 'legs',
+    'Back': 'back',
+  };
+
   int _currentViewIndex = 0; // 0=front, 1=side, 2=back
   late AnimationController _rotationController;
   late Animation<double> _rotationAnimation;
@@ -55,9 +106,8 @@ class _BodyMapWidgetState extends State<BodyMapWidget>
   void _onDragUpdate(DragUpdateDetails details) {
     if (!_isDragging) return;
     final dx = details.globalPosition.dx - _dragStartX;
-    // Need a significant swipe to rotate
     if (dx.abs() > 60) {
-      final direction = dx > 0 ? -1 : 1; // swipe right = previous view
+      final direction = dx > 0 ? -1 : 1;
       final newIndex = (_currentViewIndex + direction).clamp(0, 2);
       if (newIndex != _currentViewIndex) {
         _rotateToView(newIndex, direction);
@@ -86,13 +136,34 @@ class _BodyMapWidgetState extends State<BodyMapWidget>
     setState(() {});
   }
 
+  /// Compute per-overlay-key counts by mapping exercise muscleGroups → overlay keys.
+  Map<String, int> _buildOverlayCounts() {
+    final overlayCounts = <String, int>{};
+    for (final entry in widget.muscleCounts.entries) {
+      final overlayKeys = _muscleGroupToOverlays[entry.key] ?? [];
+      for (final key in overlayKeys) {
+        overlayCounts[key] = (overlayCounts[key] ?? 0) + entry.value;
+      }
+    }
+    return overlayCounts;
+  }
+
+  /// Opacity for a muscle overlay based on its exercise count.
+  double _muscleOpacity(String overlayKey, Map<String, int> overlayCounts) {
+    final count = overlayCounts[overlayKey] ?? 0;
+    if (count == 0) return 0.0;
+    return (0.35 + 0.2 * count).clamp(0.35, 0.95);
+  }
+
   @override
   Widget build(BuildContext context) {
     final accent = widget.accentColor;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final overlayCounts = _buildOverlayCounts();
 
-    // Get active muscle groups with proper labels
-    final activeGroups = widget.activeMuscles.map((m) => m.toLowerCase()).toSet();
+    // Active muscle groups (those with at least one exercise).
+    final activeGroups = overlayCounts.keys
+        .where((k) => (overlayCounts[k] ?? 0) > 0)
+        .toSet();
 
     return Column(
       children: [
@@ -115,7 +186,7 @@ class _BodyMapWidgetState extends State<BodyMapWidget>
               // Left: Muscle labels
               SizedBox(
                 width: 100,
-                child: _buildMuscleLabels(activeGroups, accent),
+                child: _buildMuscleLabels(activeGroups, overlayCounts, accent),
               ),
               // Right: Body model
               Expanded(
@@ -132,15 +203,7 @@ class _BodyMapWidgetState extends State<BodyMapWidget>
                           ..setEntry(3, 2, 0.001) // perspective
                           ..rotateY(skew),
                         alignment: Alignment.center,
-                        child: CustomPaint(
-                          painter: _BodyPainter(
-                            viewIndex: _currentViewIndex,
-                            activeMuscles: activeGroups,
-                            accentColor: accent,
-                            isDark: isDark,
-                          ),
-                          size: Size.infinite,
-                        ),
+                        child: _buildBody(activeGroups, overlayCounts, accent),
                       );
                     },
                   ),
@@ -176,14 +239,91 @@ class _BodyMapWidgetState extends State<BodyMapWidget>
     );
   }
 
-  Widget _buildMuscleLabels(Set<String> activeGroups, Color accent) {
+  /// Stacked image body: base outline + recolored muscle overlays.
+  Widget _buildBody(
+      Set<String> activeGroups, Map<String, int> overlayCounts, Color accent) {
+    if (_currentViewIndex != 0) {
+      return _buildComingSoon(accent);
+    }
+
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        // Base body outline
+        _baseImage(isDark),
+        // Active muscle overlays, tinted with the accent color.
+        for (final entry in _frontOverlays.entries)
+          if (activeGroups.contains(entry.key))
+            for (final asset in entry.value)
+              Image.asset(
+                asset,
+                fit: BoxFit.contain,
+                color: accent.withValues(
+                    alpha: _muscleOpacity(entry.key, overlayCounts)),
+                colorBlendMode: BlendMode.srcATop,
+              ),
+      ],
+    );
+  }
+
+  Widget _baseImage(bool isDark) {
+    final image = Image.asset(
+      'assets/body_map/front_body_base.png',
+      fit: BoxFit.contain,
+    );
+    if (!isDark) return image;
+    return ColorFiltered(
+      colorFilter: const ColorFilter.matrix(<double>[
+        0.72, 0, 0, 0, 0, //
+        0, 0.72, 0, 0, 0, //
+        0, 0, 0.72, 0, 0, //
+        0, 0, 0, 1, 0,
+      ]),
+      child: image,
+    );
+  }
+
+  Widget _buildComingSoon(Color accent) {
+    final viewName = _viewLabels[_currentViewIndex];
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.construction,
+              size: 40, color: accent.withValues(alpha: 0.5)),
+          const SizedBox(height: 8),
+          Text(
+            '$viewName view coming soon',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: accent,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Overlay images will be added next.',
+            style: TextStyle(fontSize: 11, color: context.textMuted),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMuscleLabels(
+      Set<String> activeGroups, Map<String, int> overlayCounts, Color accent) {
     final muscles = _getVisibleMuscles();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: muscles.map((muscle) {
-        final isActive = activeGroups.contains(muscle.toLowerCase());
+        final overlayKey = _labelToOverlayKey[muscle];
+        final isActive = overlayKey != null && activeGroups.contains(overlayKey);
+        final count = overlayKey != null ? (overlayCounts[overlayKey] ?? 0) : 0;
+        final dotOpacity =
+            count > 0 ? (0.5 + 0.15 * count).clamp(0.5, 1.0) : 0.0;
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: Row(
@@ -192,10 +332,17 @@ class _BodyMapWidgetState extends State<BodyMapWidget>
                 width: 8,
                 height: 8,
                 decoration: BoxDecoration(
-                  color: isActive ? accent : context.textMuted.withValues(alpha: 0.3),
+                  color: isActive
+                      ? accent
+                      : context.textMuted.withValues(alpha: 0.3),
                   shape: BoxShape.circle,
                   boxShadow: isActive
-                      ? [BoxShadow(color: accent.withValues(alpha: 0.5), blurRadius: 6)]
+                      ? [
+                          BoxShadow(
+                            color: accent.withValues(alpha: dotOpacity),
+                            blurRadius: 6,
+                          )
+                        ]
                       : null,
                 ),
               ),
@@ -220,501 +367,13 @@ class _BodyMapWidgetState extends State<BodyMapWidget>
   List<String> _getVisibleMuscles() {
     switch (_currentViewIndex) {
       case 0: // Front
-        return ['Chest', 'Shoulders', 'Biceps', 'Core', 'Quads'];
+        return ['Chest', 'Shoulders', 'Bicep', 'Abs', 'Obliques', 'Arms', 'Legs'];
       case 1: // Side
-        return ['Shoulders', 'Chest', 'Triceps', 'Core', 'Abs'];
+        return ['Shoulders', 'Chest', 'Bicep', 'Abs', 'Obliques', 'Arms', 'Legs'];
       case 2: // Back
-        return ['Back', 'Traps', 'Lats', 'Triceps', 'Hamstrings'];
+        return ['Back', 'Shoulders', 'Bicep', 'Abs', 'Obliques', 'Arms', 'Legs'];
       default:
         return [];
     }
-  }
-}
-
-/// Detailed anatomical body painter with gradient shading.
-class _BodyPainter extends CustomPainter {
-  final int viewIndex;
-  final Set<String> activeMuscles;
-  final Color accentColor;
-  final bool isDark;
-
-  _BodyPainter({
-    required this.viewIndex,
-    required this.activeMuscles,
-    required this.accentColor,
-    required this.isDark,
-  });
-
-  // Colors
-  Color get _skinBase => isDark ? const Color(0xFF1A1A2E) : const Color(0xFFE8DDD3);
-  Color get _muscleBase => isDark ? const Color(0xFF252540) : const Color(0xFFD4BFA8);
-  Color get _outline => isDark ? const Color(0xFF3A3A5C) : const Color(0xFFBBA890);
-  Color get _glowColor => accentColor;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final w = size.width;
-    final h = size.height;
-    final cx = w * 0.5;
-
-    switch (viewIndex) {
-      case 0:
-        _paintFront(canvas, w, h, cx);
-        break;
-      case 1:
-        _paintSide(canvas, w, h, cx);
-        break;
-      case 2:
-        _paintBack(canvas, w, h, cx);
-        break;
-    }
-  }
-
-  void _paintFront(Canvas canvas, double w, double h, double cx) {
-    // Shadow underneath body
-    _drawBodyShadow(canvas, w, h, cx);
-
-    // Body outline (filled)
-    final bodyPath = _frontBodyPath(w, h, cx);
-    canvas.drawPath(bodyPath, Paint()..color = _skinBase..style = PaintingStyle.fill);
-
-    // Muscle detail overlays
-    _drawMuscleGroup(canvas, 'chest', _chestPath(w, h, cx));
-    _drawMuscleGroup(canvas, 'shoulders', _frontShouldersPath(w, h, cx));
-    _drawMuscleGroup(canvas, 'biceps', _frontBicepsPath(w, h, cx));
-    _drawMuscleGroup(canvas, 'core', _corePath(w, h, cx));
-    _drawMuscleGroup(canvas, 'quads', _frontQuadsPath(w, h, cx));
-    _drawMuscleGroup(canvas, 'abs', _absPath(w, h, cx));
-
-    // Outline
-    canvas.drawPath(bodyPath, Paint()
-      ..color = _outline
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.2);
-
-    // Detail lines (pec separation, abs lines)
-    _drawFrontDetails(canvas, w, h, cx);
-  }
-
-  void _paintSide(Canvas canvas, double w, double h, double cx) {
-    _drawBodyShadow(canvas, w, h, cx);
-
-    final bodyPath = _sideBodyPath(w, h, cx);
-    canvas.drawPath(bodyPath, Paint()..color = _skinBase..style = PaintingStyle.fill);
-
-    _drawMuscleGroup(canvas, 'shoulders', _sideShouldersPath(w, h, cx));
-    _drawMuscleGroup(canvas, 'chest', _sideChestPath(w, h, cx));
-    _drawMuscleGroup(canvas, 'triceps', _sideTricepsPath(w, h, cx));
-    _drawMuscleGroup(canvas, 'core', _sideCorePath(w, h, cx));
-    _drawMuscleGroup(canvas, 'abs', _sideAbsPath(w, h, cx));
-
-    canvas.drawPath(bodyPath, Paint()
-      ..color = _outline
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.2);
-  }
-
-  void _paintBack(Canvas canvas, double w, double h, double cx) {
-    _drawBodyShadow(canvas, w, h, cx);
-
-    final bodyPath = _frontBodyPath(w, h, cx); // same silhouette
-    canvas.drawPath(bodyPath, Paint()..color = _skinBase..style = PaintingStyle.fill);
-
-    _drawMuscleGroup(canvas, 'back', _backPath(w, h, cx));
-    _drawMuscleGroup(canvas, 'traps', _trapsPath(w, h, cx));
-    _drawMuscleGroup(canvas, 'lats', _latsPath(w, h, cx));
-    _drawMuscleGroup(canvas, 'triceps', _backTricepsPath(w, h, cx));
-    _drawMuscleGroup(canvas, 'hamstrings', _backHamstringsPath(w, h, cx));
-
-    canvas.drawPath(bodyPath, Paint()
-      ..color = _outline
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.2);
-
-    _drawBackDetails(canvas, w, h, cx);
-  }
-
-  // ── Shadow ─────────────────────────────────────────────────
-
-  void _drawBodyShadow(Canvas canvas, double w, double h, double cx) {
-    final shadowPaint = Paint()
-      ..color = accentColor.withValues(alpha: 0.08)
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 20);
-    canvas.drawOval(
-      Rect.fromCenter(center: Offset(cx, h * 0.5), width: w * 0.5, height: h * 0.85),
-      shadowPaint,
-    );
-  }
-
-  // ── Muscle Group Drawing ───────────────────────────────────
-
-  void _drawMuscleGroup(Canvas canvas, String name, Path path) {
-    final isActive = activeMuscles.contains(name);
-
-    if (isActive) {
-      // Glow effect
-      final glowPaint = Paint()
-        ..color = _glowColor.withValues(alpha: 0.25)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8);
-      canvas.drawPath(path, glowPaint);
-
-      // Active fill
-      final gradient = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          accentColor.withValues(alpha: 0.7),
-          accentColor.withValues(alpha: 0.4),
-        ],
-      );
-      canvas.drawPath(path, Paint()
-        ..shader = gradient.createShader(path.getBounds())
-        ..style = PaintingStyle.fill);
-
-      // Border
-      canvas.drawPath(path, Paint()
-        ..color = accentColor
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.5);
-    } else {
-      // Inactive muscle detail
-      canvas.drawPath(path, Paint()
-        ..color = _muscleBase
-        ..style = PaintingStyle.fill);
-
-      canvas.drawPath(path, Paint()
-        ..color = _outline.withValues(alpha: 0.3)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 0.5);
-    }
-  }
-
-  // ── Body Paths ─────────────────────────────────────────────
-
-  Path _frontBodyPath(double w, double h, double cx) {
-    final p = Path();
-    final headR = w * 0.1;
-    final headY = h * 0.08;
-
-    // Head
-    p.addOval(Rect.fromCircle(center: Offset(cx, headY), radius: headR));
-
-    // Neck
-    final neckTop = headY + headR;
-    p.moveTo(cx - w * 0.05, neckTop);
-    p.lineTo(cx + w * 0.05, neckTop);
-    p.lineTo(cx + w * 0.06, neckTop + h * 0.04);
-    p.lineTo(cx - w * 0.06, neckTop + h * 0.04);
-    p.close();
-
-    // Torso + arms + legs as one shape
-    final shoulderY = neckTop + h * 0.04;
-    final shoulderW = w * 0.38;
-    final hipY = h * 0.58;
-    final hipW = w * 0.22;
-
-    // Main torso
-    final torso = Path();
-    torso.moveTo(cx - shoulderW, shoulderY);
-    torso.lineTo(cx + shoulderW, shoulderY);
-    torso.quadraticBezierTo(cx + shoulderW + w * 0.01, h * 0.32, cx + hipW, hipY);
-    torso.lineTo(cx + w * 0.03, hipY + h * 0.03);
-    torso.lineTo(cx - w * 0.03, hipY + h * 0.03);
-    torso.lineTo(cx - hipW, hipY);
-    torso.quadraticBezierTo(cx - shoulderW - w * 0.01, h * 0.32, cx - shoulderW, shoulderY);
-    torso.close();
-
-    // Left arm
-    final lArm = Path();
-    lArm.moveTo(cx - shoulderW, shoulderY);
-    lArm.lineTo(cx - shoulderW - w * 0.08, shoulderY + h * 0.02);
-    lArm.lineTo(cx - shoulderW - w * 0.06, h * 0.36); // elbow
-    lArm.lineTo(cx - shoulderW - w * 0.1, h * 0.52); // wrist
-    lArm.lineTo(cx - shoulderW - w * 0.04, h * 0.52);
-    lArm.lineTo(cx - shoulderW + w * 0.0, h * 0.36);
-    lArm.lineTo(cx - shoulderW + w * 0.02, shoulderY + h * 0.02);
-    lArm.close();
-
-    // Right arm
-    final rArm = Path();
-    rArm.moveTo(cx + shoulderW, shoulderY);
-    rArm.lineTo(cx + shoulderW + w * 0.08, shoulderY + h * 0.02);
-    rArm.lineTo(cx + shoulderW + w * 0.06, h * 0.36);
-    rArm.lineTo(cx + shoulderW + w * 0.1, h * 0.52);
-    rArm.lineTo(cx + shoulderW + w * 0.04, h * 0.52);
-    rArm.lineTo(cx + shoulderW + w * 0.0, h * 0.36);
-    rArm.lineTo(cx + shoulderW - w * 0.02, shoulderY + h * 0.02);
-    rArm.close();
-
-    // Left leg
-    final lLeg = Path();
-    lLeg.moveTo(cx - hipW * 0.5, hipY);
-    lLeg.lineTo(cx - w * 0.02, hipY + h * 0.02);
-    lLeg.lineTo(cx - w * 0.04, h * 0.96);
-    lLeg.lineTo(cx - hipW * 0.8, h * 0.96);
-    lLeg.lineTo(cx - hipW * 0.9, hipY + h * 0.02);
-    lLeg.close();
-
-    // Right leg
-    final rLeg = Path();
-    rLeg.moveTo(cx + hipW * 0.5, hipY);
-    rLeg.lineTo(cx + w * 0.02, hipY + h * 0.02);
-    rLeg.lineTo(cx + w * 0.04, h * 0.96);
-    rLeg.lineTo(cx + hipW * 0.8, h * 0.96);
-    rLeg.lineTo(cx + hipW * 0.9, hipY + h * 0.02);
-    rLeg.close();
-
-    // Combine all
-    final combined = Path.combine(PathOperation.union, torso, lArm);
-    final combined2 = Path.combine(PathOperation.union, combined, rArm);
-    final combined3 = Path.combine(PathOperation.union, combined2, lLeg);
-    return Path.combine(PathOperation.union, combined3, rLeg);
-  }
-
-  Path _sideBodyPath(double w, double h, double cx) {
-    final p = Path();
-    final headR = w * 0.09;
-    final headY = h * 0.08;
-
-    p.addOval(Rect.fromCircle(center: Offset(cx + w * 0.03, headY), radius: headR));
-
-    final neckY = headY + headR;
-    final shoulderY = neckY + h * 0.03;
-    final chestDepth = w * 0.16;
-    final hipY = h * 0.58;
-
-    // Torso side profile
-    p.moveTo(cx - chestDepth * 0.2, shoulderY);
-    p.quadraticBezierTo(cx + chestDepth, h * 0.22, cx + chestDepth * 0.8, hipY);
-    p.lineTo(cx + chestDepth * 0.6, hipY + h * 0.04);
-    p.lineTo(cx + w * 0.06, h * 0.96);
-    p.lineTo(cx - w * 0.04, h * 0.96);
-    p.lineTo(cx - chestDepth * 0.5, hipY + h * 0.04);
-    p.lineTo(cx - chestDepth * 0.3, hipY);
-    p.quadraticBezierTo(cx - chestDepth * 0.4, h * 0.26, cx - chestDepth * 0.2, shoulderY);
-    p.close();
-
-    // Arm
-    final arm = Path();
-    arm.moveTo(cx + chestDepth * 0.5, shoulderY);
-    arm.lineTo(cx + chestDepth * 0.5 + w * 0.05, shoulderY);
-    arm.lineTo(cx + chestDepth * 0.45 + w * 0.05, h * 0.52);
-    arm.lineTo(cx + chestDepth * 0.45, h * 0.52);
-    arm.close();
-
-    return Path.combine(PathOperation.union, p, arm);
-  }
-
-  // ── Muscle Region Paths ────────────────────────────────────
-
-  Path _chestPath(double w, double h, double cx) {
-    final p = Path();
-    final y = h * 0.19;
-    // Left pec
-    p.moveTo(cx - w * 0.02, y);
-    p.quadraticBezierTo(cx - w * 0.18, y - h * 0.01, cx - w * 0.22, y + h * 0.02);
-    p.lineTo(cx - w * 0.2, y + h * 0.09);
-    p.lineTo(cx - w * 0.02, y + h * 0.07);
-    p.close();
-    return p;
-  }
-
-  Path _frontShouldersPath(double w, double h, double cx) {
-    final p = Path();
-    final y = h * 0.14;
-    final sw = w * 0.38;
-    // Left delt
-    p.moveTo(cx - sw - w * 0.01, y);
-    p.quadraticBezierTo(cx - sw - w * 0.08, y + h * 0.02, cx - sw - w * 0.06, y + h * 0.08);
-    p.lineTo(cx - sw + w * 0.04, y + h * 0.06);
-    p.lineTo(cx - sw + w * 0.02, y);
-    p.close();
-    return p;
-  }
-
-  Path _frontBicepsPath(double w, double h, double cx) {
-    final p = Path();
-    final sw = w * 0.38;
-    final top = h * 0.2;
-    final bot = h * 0.36;
-    // Left bicep
-    p.moveTo(cx - sw - w * 0.04, top);
-    p.lineTo(cx - sw + w * 0.0, top);
-    p.lineTo(cx - sw - w * 0.02, bot);
-    p.lineTo(cx - sw - w * 0.08, bot);
-    p.close();
-    return p;
-  }
-
-  Path _corePath(double w, double h, double cx) {
-    final p = Path();
-    p.addRRect(RRect.fromRectAndRadius(
-      Rect.fromCenter(center: Offset(cx, h * 0.4), width: w * 0.24, height: h * 0.2),
-      const Radius.circular(8),
-    ));
-    return p;
-  }
-
-  Path _absPath(double w, double h, double cx) {
-    final p = Path();
-    // Central abs line
-    p.moveTo(cx, h * 0.33);
-    p.lineTo(cx, h * 0.52);
-    return p;
-  }
-
-  Path _frontQuadsPath(double w, double h, double cx) {
-    final p = Path();
-    final hipW = w * 0.22;
-    final top = h * 0.58;
-    final bot = h * 0.88;
-    // Left quad
-    p.moveTo(cx - hipW * 0.5, top);
-    p.lineTo(cx - w * 0.03, top);
-    p.lineTo(cx - w * 0.04, bot);
-    p.lineTo(cx - hipW * 0.75, bot);
-    p.close();
-    return p;
-  }
-
-  Path _sideShouldersPath(double w, double h, double cx) {
-    final d = w * 0.16;
-    return Path()
-      ..moveTo(cx - d * 0.1, h * 0.14)
-      ..lineTo(cx + d * 0.6, h * 0.14)
-      ..lineTo(cx + d * 0.6, h * 0.21)
-      ..lineTo(cx - d * 0.1, h * 0.21)
-      ..close();
-  }
-
-  Path _sideChestPath(double w, double h, double cx) {
-    final d = w * 0.16;
-    return Path()
-      ..moveTo(cx + d * 0.1, h * 0.2)
-      ..quadraticBezierTo(cx + d * 0.9, h * 0.22, cx + d * 0.7, h * 0.3)
-      ..lineTo(cx + d * 0.1, h * 0.3)
-      ..close();
-  }
-
-  Path _sideTricepsPath(double w, double h, double cx) {
-    final d = w * 0.16;
-    return Path()
-      ..moveTo(cx + d * 0.5, h * 0.2)
-      ..lineTo(cx + d * 0.5 + w * 0.05, h * 0.2)
-      ..lineTo(cx + d * 0.45 + w * 0.05, h * 0.36)
-      ..lineTo(cx + d * 0.45, h * 0.36)
-      ..close();
-  }
-
-  Path _sideCorePath(double w, double h, double cx) {
-    final d = w * 0.16;
-    return Path()
-      ..moveTo(cx - d * 0.05, h * 0.32)
-      ..lineTo(cx + d * 0.7, h * 0.32)
-      ..lineTo(cx + d * 0.6, h * 0.48)
-      ..lineTo(cx - d * 0.03, h * 0.48)
-      ..close();
-  }
-
-  Path _sideAbsPath(double w, double h, double cx) {
-    final d = w * 0.16;
-    return Path()
-      ..moveTo(cx + d * 0.3, h * 0.32)
-      ..lineTo(cx + d * 0.35, h * 0.32)
-      ..lineTo(cx + d * 0.3, h * 0.48)
-      ..lineTo(cx + d * 0.25, h * 0.48)
-      ..close();
-  }
-
-  Path _backPath(double w, double h, double cx) {
-    final y = h * 0.2;
-    return Path()
-      ..moveTo(cx - w * 0.18, y)
-      ..lineTo(cx + w * 0.18, y)
-      ..lineTo(cx + w * 0.18, y + h * 0.18)
-      ..lineTo(cx - w * 0.18, y + h * 0.18)
-      ..close();
-  }
-
-  Path _trapsPath(double w, double h, double cx) {
-    final y = h * 0.15;
-    return Path()
-      ..moveTo(cx - w * 0.12, y)
-      ..lineTo(cx + w * 0.12, y)
-      ..lineTo(cx + w * 0.18, y + h * 0.06)
-      ..lineTo(cx - w * 0.18, y + h * 0.06)
-      ..close();
-  }
-
-  Path _latsPath(double w, double h, double cx) {
-    final y = h * 0.25;
-    return Path()
-      ..moveTo(cx - w * 0.22, y)
-      ..lineTo(cx - w * 0.04, y)
-      ..lineTo(cx - w * 0.06, y + h * 0.14)
-      ..lineTo(cx - w * 0.24, y + h * 0.12)
-      ..close();
-  }
-
-  Path _backTricepsPath(double w, double h, double cx) {
-    final sw = w * 0.38;
-    return Path()
-      ..moveTo(cx - sw - w * 0.04, h * 0.2)
-      ..lineTo(cx - sw + w * 0.0, h * 0.2)
-      ..lineTo(cx - sw - w * 0.02, h * 0.36)
-      ..lineTo(cx - sw - w * 0.08, h * 0.36)
-      ..close();
-  }
-
-  Path _backHamstringsPath(double w, double h, double cx) {
-    final hipW = w * 0.22;
-    return Path()
-      ..moveTo(cx - hipW * 0.5, h * 0.58)
-      ..lineTo(cx - w * 0.03, h * 0.58)
-      ..lineTo(cx - w * 0.04, h * 0.88)
-      ..lineTo(cx - hipW * 0.75, h * 0.88)
-      ..close();
-  }
-
-  // ── Detail Lines ───────────────────────────────────────────
-
-  void _drawFrontDetails(Canvas canvas, double w, double h, double cx) {
-    final linePaint = Paint()
-      ..color = _outline.withValues(alpha: 0.4)
-      ..strokeWidth = 0.6
-      ..style = PaintingStyle.stroke;
-
-    // Pec separation
-    canvas.drawLine(Offset(cx, h * 0.19), Offset(cx, h * 0.27), linePaint);
-    // Ab lines
-    for (double y = h * 0.36; y < h * 0.52; y += h * 0.04) {
-      canvas.drawLine(Offset(cx - w * 0.08, y), Offset(cx + w * 0.08, y), linePaint);
-    }
-    // Inner pec lines
-    canvas.drawLine(Offset(cx - w * 0.02, h * 0.22), Offset(cx - w * 0.16, h * 0.24), linePaint);
-    canvas.drawLine(Offset(cx + w * 0.02, h * 0.22), Offset(cx + w * 0.16, h * 0.24), linePaint);
-  }
-
-  void _drawBackDetails(Canvas canvas, double w, double h, double cx) {
-    final linePaint = Paint()
-      ..color = _outline.withValues(alpha: 0.4)
-      ..strokeWidth = 0.6
-      ..style = PaintingStyle.stroke;
-
-    // Spine
-    canvas.drawLine(Offset(cx, h * 0.16), Offset(cx, h * 0.52), linePaint);
-    // Trap lines
-    canvas.drawLine(Offset(cx - w * 0.12, h * 0.17), Offset(cx, h * 0.22), linePaint);
-    canvas.drawLine(Offset(cx + w * 0.12, h * 0.17), Offset(cx, h * 0.22), linePaint);
-    // Lat lines
-    canvas.drawLine(Offset(cx - w * 0.18, h * 0.28), Offset(cx - w * 0.06, h * 0.36), linePaint);
-    canvas.drawLine(Offset(cx + w * 0.18, h * 0.28), Offset(cx + w * 0.06, h * 0.36), linePaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant _BodyPainter old) {
-    return old.activeMuscles != activeMuscles ||
-        old.viewIndex != viewIndex ||
-        old.accentColor != accentColor;
   }
 }
